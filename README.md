@@ -10,4 +10,10 @@ Para el desarrollo del proyecto backend se utilizo nodejs y mysql
 #### Para levantar el proyecto debe realizar lo siguiente
 
  1. Ejecutar el comnado npm install para descargar las librerias necesarias para la compilacion del proyecto.
- 2. Ejecutar mediante el comando 
+
+
+## Herramientas utilizadas
+### Frontend
+Para el desarrollo del proyecto frontend se el framework angular 
+
+#### Para levantar el proyecto debe realizar lo siguiente
