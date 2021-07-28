@@ -4,12 +4,11 @@ const sql = require("./db.js");
 const Producto = function(producto) {
   this.id = producto.id;
   this.codigo = producto.codigo;
+  this.proveedor_id = producto.proveedor_id;
   this.nombre = producto.nombre;
   this.descripcion = producto.descripcion;
-  this.fecha_registro = producto.fecha_registro;
-  this.fecha_modificacion = producto.fecha_modificacfion;
-  this.usuario_registro = producto.usuario_registro;
-  this.usuario_modifica_id = producto.usuario_modifica_id;
+  this.estado = producto.estado;
+
 
 };
 
@@ -17,7 +16,7 @@ Producto.create = (newProducto, result) => {
 
 
   console.log('Producto que llega ',newProducto);
-  sql.query("INSERT INTO TLC_PRODUCTOS SET ?", newProducto, (err, res) => {
+  sql.query("INSERT INTO PRODUCTOS SET ?", newProducto, (err, res) => {
    
     if (err) {
       console.log("error: ", err);
@@ -31,7 +30,7 @@ Producto.create = (newProducto, result) => {
 };
 
 Producto.findById = (productoId, result) => {
-  sql.query(`SELECT * FROM TLC_PRODUCTOS WHERE id = ${productoId}`, (err, res) => {
+  sql.query(`SELECT * FROM PRODUCTOS WHERE id = ${productoId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -54,7 +53,7 @@ Producto.getAll = result => {
   
   console.log(" ingresando a getall");
    
-  sql.query("SELECT * FROM tlc_pedidos.TLC_PRODUCTOS",
+  sql.query("SELECT * FROM PRODUCTOS",
    (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -70,8 +69,8 @@ Producto.getAll = result => {
 
 Producto.updateById = (id, producto, result) => {
   sql.query(
-    "UPDATE TLC_PRODUCTOS SET NOMBRE = ?, DESCRIPCION = ?,  FECHA_MODIFICACION = ? , USUARIO_MODIFICA_ID = ?  WHERE id = ?",
-    [producto.nombre, producto.descripcion, producto.fecha_modificacion,producto.usuario_modifica_id, id],
+    "UPDATE PRODUCTOS SET NOMBRE = ?, DESCRIPCION = ?, ESTADO = ? WHERE id = ?",
+    [producto.nombre, producto.descripcion,producto.estado,id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -92,7 +91,7 @@ Producto.updateById = (id, producto, result) => {
 };
 
 Producto.remove = (id, result) => {
-  sql.query("DELETE FROM TLC_PRODUCTOS WHERE id = ?", id, (err, res) => {
+  sql.query("UPDATE PRODUCTOS SET ESTADO='I' WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -110,17 +109,5 @@ Producto.remove = (id, result) => {
   });
 };
 
-Producto.removeAll = result => {
-  sql.query("DELETE FROM TLC_PRODUCTOS", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
-
-    console.log(`deleted ${res.affectedRows} TLC_PRODUCTOS`);
-    result(null, res);
-  });
-};
 
 module.exports = Producto;

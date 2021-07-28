@@ -3,18 +3,17 @@ const sql = require("./db.js");
 // constructor
 const Proveedor  = function(proveedor) {
   this.id = proveedor.id;
-  this.codigo = proveedor.codigo;
   this.nombre = proveedor.nombre;
+  this.telefono = proveedor.telefono;
   this.descripcion = proveedor.descripcion;
-  this.fecha_registro = proveedor.fecha_registro;
-  this.fecha_modificacion = proveedor.fecha_modificacfion;
-  this.usuario_registro_id = proveedor.usuario_registro_id;
-  this.usuario_modifica_id = proveedor.usuario_modifica_id;
+  this.correo_electronico = proveedor.correo_electronico;
+  this.direccion = proveedor.direccion;
+  this.estado = proveedor.estado;
 
 };
 
 Proveedor.create = (newProveedor, result) => {
-  sql.query("INSERT INTO TLC_PROVEEDORES SET ?", newProveedor, (err, res) => {
+  sql.query("INSERT INTO proveedores SET ?", newProveedor, (err, res) => {
    
     if (err) {
       console.log("error: ", err);
@@ -28,7 +27,7 @@ Proveedor.create = (newProveedor, result) => {
 };
 
 Proveedor.findById = (proveedorId, result) => {
-  sql.query(`SELECT * FROM TLC_PROVEEDORES WHERE id = ${proveedorId}`, (err, res) => {
+  sql.query(`SELECT * FROM proveedores WHERE id = ${proveedorId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -51,7 +50,7 @@ Proveedor.getAll = result => {
   
   
    
-  sql.query("SELECT * FROM tlc_pedidos.TLC_PROVEEDORES",
+  sql.query("SELECT * FROM proveedores",
    (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -67,8 +66,8 @@ Proveedor.getAll = result => {
 
 Proveedor.updateById = (id, proveedor, result) => {
   sql.query(
-    "UPDATE TLC_PROVEEDORES SET NOMBRE = ?, DESCRIPCION = ?,  FECHA_MODIFICACION = ? , USUARIO_MODIFICA_ID = ?  WHERE id = ?",
-    [proveedor.nombre, proveedor.descripcion, proveedor.fecha_modificacion,proveedor.usuario_modifica_id, id],
+    "UPDATE proveedores SET NOMBRE = ?, DESCRIPCION = ?,  direccion = ? , telefono = ?, correo_electronico=?  WHERE id = ?",
+    [proveedor.nombre, proveedor.descripcion, proveedor.direccion,proveedor.telefono,proveedor.correo_electronico, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -89,7 +88,7 @@ Proveedor.updateById = (id, proveedor, result) => {
 };
 
 Proveedor.remove = (id, result) => {
-  sql.query("DELETE FROM TLC_PROVEEDORES WHERE id = ?", id, (err, res) => {
+  sql.query("update proveedores set estado='I' WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -102,22 +101,11 @@ Proveedor.remove = (id, result) => {
       return;
     }
 
-    console.log("deleted TLC_PROVEEDORES with id: ", id);
+    console.log("deleted proveedor with id: ", id);
     result(null, res);
   });
 };
 
-Proveedor.removeAll = result => {
-  sql.query("DELETE FROM TLC_PROVEEDORES", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
 
-    console.log(`deleted ${res.affectedRows} TLC_PROVEEDORES`);
-    result(null, res);
-  });
-};
 
 module.exports = Proveedor;

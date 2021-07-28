@@ -1,8 +1,31 @@
-const http = require('http');
-const app = require('./app');
+const express = require("express");
+const bodyParser = require("body-parser");
+//var argv = require('minimist')(process.argv.slice(2));
+const cors = require("cors");
 
-const port = process.env.PORT || 3000;
+const app = express();
 
-const server = http.createServer(app);
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
 
-server.listen(port);
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
+});
+
+require('./api/routes/producto.routes')(app);
+require('./api/routes/proveedor.routes')(app);
+require('./api/routes/cliente.routes')(app);
+require('./api/routes/materiales-fabricacion.routes')(app);
+require('./api/routes/pago-pedido.routes')(app);
+require('./api/routes/pedido.routes')(app);
+require('./api/routes/detalle-pedido.routes')(app);
+// set port, listen for requestsprocess.env.PORT ||
+const PORT =  3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
