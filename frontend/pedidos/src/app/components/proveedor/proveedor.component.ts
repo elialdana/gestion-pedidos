@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProveedorComponent implements OnInit {
 
+  //variables
+
+  estado: string = 'A';
+  nombre: string = '';
+  descripcion: string = '';
   constructor() { }
 
   ngOnInit() {

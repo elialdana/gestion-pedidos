@@ -23,7 +23,8 @@ export class Servicios {
       headers: new HttpHeaders({
         'Accept': '*/*',
         'Content-Type': 'application/json; charset=utf-8',
-        'Content-Length': '25'
+        'Content-Length': '25',
+        'Access-Control-Allow-Origin':'*'
       })
     };
     return httpOptions;

@@ -1,3 +1,43 @@
-<p>
-  producto works!
-</p>
+<br><br><br><br>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card class="box">
+    <mat-card-header style="text-align: center;">
+      <mat-card-title >MANTENIMIENTO DE PRODUCTOS</mat-card-title>
+    </mat-card-header>
+    <br>
+    <form class="example-form"   #formulario="ngForm" >
+      <mat-card-content>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Código</mat-label>
+          <input [(ngModel)]="codigo" name="codigo"  matInput placeholder="Código" formControlName="username">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input [(ngModel)]="nombre" name="nombre"  matInput placeholder="Nombre" formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea [(ngModel)]="descripcion" name="descripcion"  matInput placeholder="Escribe una breve descripción del producto" formControlName="username"></textarea>
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline" class="example-full-width">
+          <mat-label>Estado</mat-label>
+          <mat-select  [(ngModel)]="estado" name="estado" >
+            <mat-option value="A">Activo</mat-option>
+            <mat-option value="I">Inactivo</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div style="text-align: center;">
+          <button  mat-flat-button color="primary">Guardar</button>
+        </div>
+      </mat-card-content>
+
+
+    </form>
+
+  </mat-card>
+
+</div>

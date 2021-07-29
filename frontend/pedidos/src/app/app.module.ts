@@ -1,3 +1,4 @@
+import { ProductoComponent } from './components/producto/producto.component';
 import { Servicios } from './servicios/servicios.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,7 +14,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
-    LogInComponent
+    LogInComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,

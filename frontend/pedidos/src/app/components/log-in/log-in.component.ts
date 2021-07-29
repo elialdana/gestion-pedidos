@@ -13,7 +13,7 @@ export class LogInComponent implements OnInit {
     username: [''],
     password: ['']
   });
-
+  hide = true;
   constructor(
     private fb: FormBuilder,
     private servicios: Servicios) { }
