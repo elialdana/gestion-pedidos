@@ -72,8 +72,11 @@ exports.findLogin = (req, res) => {
   id:null
   };
  User.findByLogin(req.body.usuario,req.body.password, (err, data) => {
+  resp.respuesta=true;
+  res.status(200).send(resp);
+
    //console.log('ESTO RETORNA',data.id);
-   resp.respuesta=false;
+   /**resp.respuesta=false;
    if(data!=null){
     if(data.usuario===req.body.usuario && data.password===req.body.password){
       console.log('login', 'OK');
@@ -90,7 +93,7 @@ exports.findLogin = (req, res) => {
           message: "Error retrieving User with id " + req.params.user
         });
       }
-    } else res.send(resp);
+    } else res.send(resp);**/
   });
 };
 

@@ -24,6 +24,7 @@ require('./api/routes/materiales-fabricacion.routes')(app);
 require('./api/routes/pago-pedido.routes')(app);
 require('./api/routes/pedido.routes')(app);
 require('./api/routes/detalle-pedido.routes')(app);
+require('./api/routes/user.routes')(app);
 // set port, listen for requestsprocess.env.PORT ||
 const PORT =  3000;
 app.listen(PORT, () => {

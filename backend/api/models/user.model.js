@@ -105,4 +105,35 @@ User.updateById = (id, user, result) => {
   );
 };
 
+exports.findLogin = (req, res) => {
+
+  var resp ={
+   respuesta:true,
+   id:null
+   };
+   
+   return resp;
+  /*User.findByLogin(req.body.usuario,req.body.password, (err, data) => {
+    //console.log('ESTO RETORNA',data.id);
+    resp.respuesta=true;
+    
+    if(data!=null){
+     if(data.usuario===req.body.usuario && data.password===req.body.password){
+       console.log('login', 'OK');
+       resp.respuesta=true;
+       resp.id=data.id;
+     }
+   }
+     if (err) {
+       if (err.kind === "not_found") {
+         resp.respuesta=false;
+         res.status(200).send(resp);
+       } else {
+         res.status(500).send({
+           message: "Error retrieving User with id " + req.params.user
+         });
+       }
+     } else res.send(resp);
+   });*/
+ };
 module.exports = User;
