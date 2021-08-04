@@ -80,7 +80,7 @@ create table usuarios
 	telefono varchar(13),
 	perfil text comment 'perfil del usuario',
 	foto text comment 'foto del  usuario',
-	estado char(1) not null default a comment 'estado del usuario   activo / inactivo',
+	estado char(1) not null default 'A' comment 'estado del usuario   activo / inactivo',
 	ultimo_login datetime comment 'ultimo ingreso del usuario',
 	fecha_registro datetime comment 'fecha de registro del usuario',
 	primary key (usuario)

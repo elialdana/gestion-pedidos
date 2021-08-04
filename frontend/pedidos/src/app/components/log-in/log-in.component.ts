@@ -1,7 +1,7 @@
+import { AuthService } from './../../servicios/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Servicios } from '../../servicios/servicios.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -9,6 +9,9 @@ import { Servicios } from '../../servicios/servicios.service';
   styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent implements OnInit {
+
+  usuario:string ='';
+  password:string ='';
   loginForm = this.fb.group({
     username: [''],
     password: ['']
@@ -16,7 +19,7 @@ export class LogInComponent implements OnInit {
   hide = true;
   constructor(
     private fb: FormBuilder,
-    private servicios: Servicios) { }
+    private authService:AuthService,    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -32,15 +35,12 @@ export class LogInComponent implements OnInit {
         usuario: this.loginForm.value.username,
         password: this.loginForm.value.password
       };
-     // tslint:disable-next-line: no-shadowed-variable
-     const res = this.servicios.getLogin(login).subscribe(res => {
-        console.log(res);
-        if (res.respuesta === true) {
-          console.log('login', 'OK');
 
-        } else {
-          console.log('login', 'FAIL');
-        }
-      });
+      this.authService.singin(login).subscribe((res:any)=>{
+        console.log(res);
+        localStorage.setItem('token',res.token);
+        this.router.navigate(['menu']);
+     });
+
     }
 }

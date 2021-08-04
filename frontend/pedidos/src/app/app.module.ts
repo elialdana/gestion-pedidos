@@ -1,5 +1,6 @@
+import { MenuAppComponent } from './components/menu-app/menu-app.component';
 import { ProductoComponent } from './components/producto/producto.component';
-import { Servicios } from './servicios/servicios.service';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -8,13 +9,16 @@ import { AppComponent } from './app.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+// Providers
+import { JwtHelperService, JWT_OPTIONS }  from '@auth0/angular-jwt'
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
+    MenuAppComponent,
     ProductoComponent
   ],
   imports: [
@@ -25,7 +29,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     FlexLayoutModule
   ],
-  providers: [Servicios],
+  providers: [
+    // JWT
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    // Token interceptor
+  //  { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

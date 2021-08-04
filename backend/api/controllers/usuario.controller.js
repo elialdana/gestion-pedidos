@@ -1,4 +1,4 @@
-const User = require("../models/user.model.js");
+const Usuario = require("../models/usuario.model.js");
 
 // Create and Save a new Customer
 exports.create = (req, res) => {
@@ -10,22 +10,21 @@ exports.create = (req, res) => {
   }
 
   // Create a User
-  const user = new User({
-    dpi:req.body.dpi,
-    primernombre:req.body.primernombre,
-    segundonombre:req.body.segundonombre,
-    cargo:req.body.cargo,
-    primerapellido:req.body.primerapellido,
-    segundoapellido:req.body.segundoapellido,
-    email:req.body.email,
+  const usuario = new Usuario({
     usuario:req.body.usuario,
-    estado:req.body.estado,
-    codigopuntoasignado:req.body.codigopuntoasignado,
-    password : req.body.password
+    dpi: req.body.dpi,
+    password:req.body.password,
+    email:req.body.email,
+    nombre:req.body.nombre,
+    direccion:req.body.direccion,
+    telefono:req.body.telefono,
+    perfil:req.body.perfil,
+    foto:req.body.foto,
+    estado:req.body.estado
   });
 
   // Save Customer in the database
-  User.create(user, (err, data) => {
+  Usuario.create(usuario, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -37,7 +36,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Catalogo from the database.
 exports.findAll = (req, res) => {
-  User.getAll((err, data) => {
+  Usuario.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -47,17 +46,17 @@ exports.findAll = (req, res) => {
   });
 };
 
-// Find a single Customer with a customerId
+
 exports.findOne = (req, res) => {
-  User.findById(req.params.id, (err, data) => {
+  Usuario.findById(req.params.usuario, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found User with id ${req.params.id}.`
+          message: `Not found User with id ${req.params.usuario}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving User with id " + req.params.id
+          message: "Error retrieving User with id " + req.params.usuario
         });
       }
     } else res.send(data);
@@ -67,34 +66,52 @@ exports.findOne = (req, res) => {
 //login method
 exports.findLogin = (req, res) => {
  // console.log("se le envia estoooooo", req.body.usuario);
- var resp ={
-  respuesta:true,
-  id:null
-  };
- User.findByLogin(req.body.usuario,req.body.password, (err, data) => {
-  resp.respuesta=true;
-  res.status(200).send(resp);
 
-   //console.log('ESTO RETORNA',data.id);
-   /**resp.respuesta=false;
+
+ const jwt = require('jsonwebtoken');
+ var resp ={
+  respuesta:false,
+  token:null,
+  
+  };
+
+  console.log(req.body)
+ Usuario.findById(req.body.usuario, (err, data) => {
+
+  const {usuario,password,perfil} =data;
+
+   console.log('ESTO RETORNA',data);
+   resp.respuesta=false;
    if(data!=null){
-    if(data.usuario===req.body.usuario && data.password===req.body.password){
+
+   if(usuario===req.body.usuario && password===req.body.password){
       console.log('login', 'OK');
+      const token = jwt.sign({usuario,perfil},'umg')
+    
+
       resp.respuesta=true;
-      resp.id=data.id;
+      resp.token =token;
+        res.status(200).send(resp);
     }
   }
-    if (err) {
-      if (err.kind === "not_found") {
-        resp.respuesta=false;
-        res.status(200).send(resp);
-      } else {
-        res.status(500).send({
-          message: "Error retrieving User with id " + req.params.user
-        });
-      }
-    } else res.send(resp);**/
+   
   });
+};
+
+
+exports.verificaToken = (req,res)=>{
+  if(!req.headers.authorization) return res.status(401).json('No autorizado');
+  const jwt = require('jsonwebtoken');
+  const token = req.headers.authorization.substr(7);
+  console.log(token)
+  if(token!==''){
+    const content = jwt.verify(token, 'umg')
+    req.data = content;
+    res.status(200).json('Token correcto');
+  }else{
+    res.status(401).json('Token vacio');
+  }
+
 };
 
 // Update a Customer identified by the customerId in the request
@@ -107,7 +124,7 @@ exports.update = (req, res) => {
   }
 
 
-  User.updateById(
+  Usuario.updateById(
     req.params.id,
     new User (req.body),
     (err, data) => {

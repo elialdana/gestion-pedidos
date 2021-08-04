@@ -1,4 +1,4 @@
-import { Servicios } from './../../servicios/servicios.service';
+
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,7 +17,7 @@ export class ProductoComponent implements OnInit {
 
   constructor(
 
-    private servicios: Servicios) { }
+    ) { }
   ngOnInit() {
   }
 
