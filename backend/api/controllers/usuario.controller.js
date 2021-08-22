@@ -126,7 +126,7 @@ exports.update = (req, res) => {
 
   Usuario.updateById(
     req.params.id,
-    new User (req.body),
+    new Usuario (req.body),
     (err, data) => {
       console.log('dataaaaaaa',data);
       if (err) {

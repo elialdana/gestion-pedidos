@@ -1,43 +1,188 @@
-<br><br><br><br>
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div class="container app">
+  <div class="row">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4">
+      <div class="alert alert-success alert-dismissable" *ngIf="msg">
+        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
+        {{ msg }}
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="alert alert-danger alert-dismissable" *ngIf="err">
+        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
+        {{ err }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <img
+        width="300"
+        src="../../../assets/logo.PNG"
+      />
+    </div>
+    <div class="col-sm-8">
+      <form class="form-horizontal">
 
-  <mat-card class="box">
-    <mat-card-header style="text-align: center;">
-      <mat-card-title >MANTENIMIENTO DE PRODUCTOS</mat-card-title>
-    </mat-card-header>
-    <br>
-    <form class="example-form"   #formulario="ngForm" >
-      <mat-card-content>
-        <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Código</mat-label>
-          <input [(ngModel)]="codigo" name="codigo"  matInput placeholder="Código" formControlName="username">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input [(ngModel)]="nombre" name="nombre"  matInput placeholder="Nombre" formControlName="username">
-        </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Descripción</mat-label>
-          <textarea [(ngModel)]="descripcion" name="descripcion"  matInput placeholder="Escribe una breve descripción del producto" formControlName="username"></textarea>
-        </mat-form-field>
 
-        <mat-form-field  appearance="outline" class="example-full-width">
-          <mat-label>Estado</mat-label>
-          <mat-select  [(ngModel)]="estado" name="estado" >
-            <mat-option value="A">Activo</mat-option>
-            <mat-option value="I">Inactivo</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <form >
+          <!-- CODIGO -->
+          <div class="form-group">
+            <label class="font-weight-bold"> CODIGO </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="codigo" name="codigo"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese el código del producto"
+              />
+            </div>
+          </div>
+          <br>
+          <!-- NOMBRE -->
+          <div class="form-group">
+            <label class="font-weight-bold"l> NOMBRE </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="nombre" name="nombre"
+                type="text"
+                class="form-control"
 
-        <div style="text-align: center;">
-          <button  mat-flat-button color="primary">Guardar</button>
+                placeholder="Ingrese el nombre del producto"
+              />
+            </div>
+          </div>
+
+
+          <br>
+          <div class="form-group">
+            <label class="font-weight-bold">  PRECIO </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="precio" name="precio"
+                type="number"
+                class="form-control"
+
+                placeholder="Ingrese si el producto tiene un precio"
+              />
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label class="font-weight-bold"> CALCULAR PRECIO </label>
+              </div>
+              <div class="col-9">
+                <mat-checkbox [(ngModel)]="calculaPrecio" name="calculaPrecio" ></mat-checkbox>
+              </div>
+            </div>
+          </div>
+         <!-- DESCRIPCION -->
+         <br>
+         <div class="form-group">
+          <label class="font-weight-bold"> DESCRIPCION </label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="descripcion" name="descripcion"
+              placeholder="Ingrese la descripción del producto"
+            />
+          </div>
         </div>
-      </mat-card-content>
+        <br>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label class="font-weight-bold"> ACTIVO </label>
+              </div>
+              <div class="col-9">
+                <mat-checkbox [(ngModel)]="estado" name="estado" ></mat-checkbox>
+              </div>
+            </div>
+          </div>
 
+          <br />
+          <div class="text-center ">
 
-    </form>
+              <button
 
-  </mat-card>
+                class="btn btn-lg btn-block btn-success"
+                (click)="saveOrUpdate()"
+              >
+                {{nombreBoton}}
+              </button>
+              <button
 
+                class="btn btn-lg btn-block btn-secondary"
+                (click)="limpiar()"
+              >
+                Limpiar
+              </button>
+
+          </div>
+        </form>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="table-responsive">
+      <br />
+      <table class="table table-bordered ">
+        <thead >
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let element of tableModel | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+
+            <td>{{element.codigo}}</td>
+            <td>{{element.nombre}}</td>
+            <td>{{element.descripcion}}</td>
+            <td>{{element.estado}}</td>
+
+            <td style="width: 10vw;">
+
+                <button
+
+                class="btn btn-sm btn-danger"
+                (click)="eliminar(element)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button
+
+              class="btn btn-sm btn-success"
+              (click)="seleccionaEditar(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+          </td>
+
+        </tbody>
+      </table>
+      <pagination-controls
+        (pageChange)="pageActual = $event"
+      ></pagination-controls>
+    </div>
+    <div class="col-sm-4" [hidden]="hideUpdate"></div>
+  </div>
+
+<!--spinner-->
+<div class="loading-spinner">
+
+  <ngx-spinner diameter="40" strokeWidth="2" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff"
+    type="ball-fussion">
+    <h1 mat-dialog-title class="title-loading" style="color: white;">Cargando...</h1>
+
+  </ngx-spinner>
 </div>

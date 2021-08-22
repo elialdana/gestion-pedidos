@@ -3,12 +3,12 @@ const sql = require("./db.js");
 // constructor
 const Producto = function(producto) {
   this.id = producto.id;
-  this.codigo = producto.codigo;
-  this.proveedor_id = producto.proveedor_id;
+  this.codigo = producto.codigo;  
   this.nombre = producto.nombre;
   this.descripcion = producto.descripcion;
   this.estado = producto.estado;
-
+  this.calcular_precio = producto.calcular_precio;
+  this.precio_predeterminado = producto.precio_predeterminado;
 
 };
 
@@ -16,7 +16,7 @@ Producto.create = (newProducto, result) => {
 
 
   console.log('Producto que llega ',newProducto);
-  sql.query("INSERT INTO PRODUCTOS SET ?", newProducto, (err, res) => {
+  sql.query("INSERT INTO productos SET ?", newProducto, (err, res) => {
    
     if (err) {
       console.log("error: ", err);
@@ -53,7 +53,7 @@ Producto.getAll = result => {
   
   console.log(" ingresando a getall");
    
-  sql.query("SELECT * FROM PRODUCTOS",
+  sql.query("SELECT * FROM PRODUCTOS where estado='A'",
    (err, res) => {
     if (err) {
       console.log("error: ", err);

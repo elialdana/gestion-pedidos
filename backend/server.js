@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
-app.use(cors());
+app.use(cors({origin:['http://localhost:4200']}));
 
 // simple route
 app.get("/", (req, res) => {

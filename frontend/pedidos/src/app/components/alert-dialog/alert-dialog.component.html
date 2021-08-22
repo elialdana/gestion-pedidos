@@ -1,0 +1,26 @@
+<div *ngIf="icon" class="text-center text-{{getTexColor(icon)}}">
+	<i class="material-icons" style="font-size: 5rem;">
+		{{geticon(icon)}}
+	</i>
+</div>
+<h5 *ngIf="title" mat-dialog-title class="title">
+	{{title}}
+	<hr>
+</h5>
+<mat-dialog-content>
+	<p style="text-align: justify;" *ngIf="text">{{text}}</p>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<ng-container>
+
+		<button *ngIf="showConfirmButton" mat-button class="btn btn-blue-sat" (click)="onAceptarClick()" cdkFocusInitial>
+			{{confirmButtonText}}
+		</button>
+
+    <button *ngIf="showCancelButton" mat-raised-button class="btn btn-default" (click)="onCancelClick()">
+			{{cancelButtonText}}
+		</button>
+	</ng-container>
+
+</mat-dialog-actions>

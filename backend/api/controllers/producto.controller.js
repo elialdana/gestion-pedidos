@@ -12,10 +12,12 @@ exports.create = (req, res) => {
 
   const producto = new Producto({
     codigo: req.body.codigo,
-    proveedor_id: req.body.proveedor_id,    
     nombre: req.body.nombre,
     descripcion: req.body.descripcion,
-    estado: req.body.estado
+    estado: req.body.estado,
+    calcular_precio: req.body.estado,
+    precio_predeterminado: req.body.precio_predeterminado
+
   });
 
 

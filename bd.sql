@@ -33,7 +33,7 @@ create table pagos
 
 create table productos
 (
-	id bigint not null comment 'identificador unico',
+	id bigint not null AUTO_INCREMENT comment 'identificador unico',
 	codigo varchar(20) not null comment 'codigo del producto',
 	nombre varchar(80) not null comment 'nombre del producto que vende la empresa',
 	descripcion varchar(150) comment 'en este campo puede ir una descripcion de las caracteristicas que tiene el producto',
@@ -51,7 +51,7 @@ create table productos
 
 create table detalle_pedido_cliente
 (
-	id bigint not null comment 'idenfiticador unico',
+	id bigint not null AUTO_INCREMENT comment 'idenfiticador unico',
 	pedido_id bigint not null comment 'encabezado del pedido',
 	producto_id bigint not null comment 'producto solicitado',
 	comentario varchar(100) comment 'comentario de cosas extras que solicite el cliente',

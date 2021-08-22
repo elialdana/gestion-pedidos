@@ -1,0 +1,23 @@
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  div.mat-dialog-container {
+      width: 100%;
+      min-width: inherit;
+      max-width: inherit;
+  }
+}
+
+.title {
+  /* display: block; */
+  /* position: relative; */
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #595959;
+  font-size: 1.875em;
+  font-weight: 600;
+  text-align: center;
+  text-transform: none;
+  word-wrap: break-word;
+}

@@ -8,7 +8,7 @@ const Proveedor  = function(proveedor) {
   this.descripcion = proveedor.descripcion;
   this.correo_electronico = proveedor.correo_electronico;
   this.direccion = proveedor.direccion;
-  this.estado = proveedor.estado;
+  
 
 };
 
@@ -88,7 +88,7 @@ Proveedor.updateById = (id, proveedor, result) => {
 };
 
 Proveedor.remove = (id, result) => {
-  sql.query("update proveedores set estado='I' WHERE id = ?", id, (err, res) => {
+  sql.query("delete from proveedores  WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

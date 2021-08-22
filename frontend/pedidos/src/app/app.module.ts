@@ -1,4 +1,12 @@
-import { MenuAppComponent } from './components/menu-app/menu-app.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
+import { ClienteComponent } from './components/cliente/cliente.component';
+import { ProveedorComponent } from './components/proveedor/proveedor.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { InterceptorService } from './servicios/interceptor.service';
+
 import { ProductoComponent } from './components/producto/producto.component';
 
 import { NgModule } from '@angular/core';
@@ -11,15 +19,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 // Providers
 import { JwtHelperService, JWT_OPTIONS }  from '@auth0/angular-jwt'
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
-    MenuAppComponent,
-    ProductoComponent
+
+    ProductoComponent,
+    AlertDialogComponent,
+    ProveedorComponent,
+    ClienteComponent,
+    UsuarioComponent,
+    HeaderComponent,
+    SidebarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -27,15 +43,18 @@ import { JwtHelperService, JWT_OPTIONS }  from '@auth0/angular-jwt'
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    FlexLayoutModule
-  ],
+    FlexLayoutModule,
+    NgxPaginationModule
+    ],
   providers: [
+
     // JWT
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     // Token interceptor
-  //  { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
+  { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

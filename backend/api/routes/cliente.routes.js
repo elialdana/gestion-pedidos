@@ -3,14 +3,14 @@ module.exports = app => {
 
   
   // Create a new cliente
-  app.post("/cliente", cliente.create);
+  app.post("/api/cliente", cliente.create);
   // Retrieve all cliente
-  app.get("/cliente", cliente.findAll);
+  app.get("/api/cliente", cliente.findAll);
   // Retrieve a single cliente with id
-  app.get("/cliente/:id", cliente.findOne);
+  app.get("/api/cliente/:id", cliente.findOne);
 
   // Update a cliente with id
-  app.put("/cliente/:id", cliente.update);
+  app.put("/api/cliente/:id", cliente.update);
 
 
 

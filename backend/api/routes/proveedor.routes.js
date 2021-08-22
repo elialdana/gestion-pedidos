@@ -3,17 +3,17 @@ module.exports = app => {
 
   
   // Create a new proveedor
-  app.post("/proveedor", proveedor.create);
+  app.post("/api/proveedor", proveedor.create);
   // Retrieve all proveedor
-  app.get("/proveedor", proveedor.findAll);
+  app.get("/api/proveedor", proveedor.findAll);
   // Retrieve a single proveedor with id
-  app.get("/proveedor/:id", proveedor.findOne);
+  app.get("/api/proveedor/:id", proveedor.findOne);
 
   // Update a proveedor with id
-  app.put("/proveedor/:id", proveedor.update);
+  app.put("/api/proveedor/:id", proveedor.update);
 
   // Delete a proveedor with id
-  app.delete("/proveedor/:id", proveedor.delete);
+  app.delete("/api/proveedor/:id", proveedor.delete);
 
 
 };

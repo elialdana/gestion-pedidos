@@ -65,9 +65,10 @@ Cliente.getAll = result => {
 };
 
 Cliente.updateById = (id, cliente, result) => {
+
   sql.query(
-    "UPDATE clientes SET NOMBRE = ?, DESCRIPCION = ?,  FECHA_MODIFICACION = ? , USUARIO_MODIFICA_ID = ?  WHERE id = ?",
-    [cliente.nombre, cliente.descripcion, cliente.fecha_modificacion,cliente.usuario_modifica_id, id],
+    "UPDATE clientes SET NOMBRE = ?, telefono_uno=? , telefono_dos=?, domicilio=?, correo_electronico=?, dpi=?, nit=? WHERE id = ?",
+    [cliente.nombre,cliente.telefono_uno,cliente.telefono_dos,cliente.domicilio,cliente.correo_electronico, cliente.dpi,cliente.nit, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

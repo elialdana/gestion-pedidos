@@ -12,7 +12,7 @@ const Usuario = function(user) {
     this.perfil=user.perfil;
     this.foto=user.foto;
     this.estado=user.estado;
-
+    
 
 };
 

@@ -17,8 +17,8 @@ exports.create = (req, res) => {
     telefono: req.body.telefono,
     descripcion: req.body.descripcion,
     correo_electronico: req.body.correo_electronico,
-    direccion: req.body.direccion,
-    estado: req.body.estado
+    direccion: req.body.direccion
+
   });
 
 

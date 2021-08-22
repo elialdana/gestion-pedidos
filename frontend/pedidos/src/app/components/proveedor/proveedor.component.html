@@ -1,3 +1,181 @@
-<p>
-  proveedor works!
-</p>
+<div class="container app">
+  <div class="row">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4">
+      <div class="alert alert-success alert-dismissable" *ngIf="msg">
+        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
+        {{ msg }}
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="alert alert-danger alert-dismissable" *ngIf="err">
+        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
+        {{ err }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <img
+        width="300"
+        src="../../../assets/logo.PNG"
+      />
+    </div>
+    <div class="col-sm-8">
+      <form class="form-horizontal">
+
+
+
+        <form >
+
+          <!-- NOMBRE -->
+          <div class="form-group">
+            <label class="font-weight-bold"l> NOMBRE </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="nombre" name="nombre"
+                type="text"
+                class="form-control"
+
+                placeholder="Ingrese nombre del proveedor"
+              />
+            </div>
+          </div>
+
+
+          <br>
+          <div class="form-group">
+            <label class="font-weight-bold">  TELEFONO </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="telefono" name="telefono"
+                type="text"
+                class="form-control"
+
+                placeholder="Ingrese numero telefonico del proveedor"
+              />
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="font-weight-bold">  EMAIL </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="correo_electronico" name="correo_electronico"
+                type="email"
+                class="form-control"
+
+                placeholder="Ingrese correo electronico del proveedor"
+              />
+            </div>
+          </div>
+         <!-- DESCRIPCION -->
+         <br>
+         <div class="form-group">
+          <label class="font-weight-bold"> DIRECCION </label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="direccion" name="direccion"
+              placeholder="Ingrese una direccion del proveedor"
+            />
+          </div>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+          <label class="font-weight-bold"> DESCRIPCION </label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="descripcion" name="descripcion"
+              placeholder="Ingrese la descripción del proveedor"
+            />
+          </div>
+        </div>
+          <br />
+          <div class="text-center ">
+
+              <button
+
+                class="btn btn-lg btn-block btn-success"
+                (click)="saveOrUpdate()"
+              >
+                {{nombreBoton}}
+              </button>
+              <button
+
+                class="btn btn-lg btn-block btn-secondary"
+                (click)="limpiar()"
+              >
+                Limpiar
+              </button>
+
+          </div>
+        </form>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="table-responsive">
+      <br />
+      <table class="table table-bordered ">
+        <thead >
+          <tr>
+
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Dirección</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let element of tableModel | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+
+            <td>{{element.nombre}}</td>
+            <td>{{element.telefono}}</td>
+            <td>{{element.correo_electronico}}</td>
+            <td>{{element.direccion}}</td>
+
+            <td style="width: 10vw;">
+
+                <button
+
+                class="btn btn-sm btn-danger"
+                (click)="eliminar(element)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button
+
+              class="btn btn-sm btn-success"
+              (click)="seleccionaEditar(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+          </td>
+
+        </tbody>
+      </table>
+      <pagination-controls
+        (pageChange)="pageActual = $event"
+      ></pagination-controls>
+    </div>
+    <div class="col-sm-4" [hidden]="hideUpdate"></div>
+  </div>
+
+<!--spinner-->
+<div class="loading-spinner">
+
+  <ngx-spinner diameter="40" strokeWidth="2" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff"
+    type="ball-fussion">
+    <h1 mat-dialog-title class="title-loading" style="color: white;">Cargando...</h1>
+
+  </ngx-spinner>
+</div>

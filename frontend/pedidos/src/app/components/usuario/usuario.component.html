@@ -1,0 +1,179 @@
+<div class="container app">
+  <div class="row">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4">
+      <div class="alert alert-success alert-dismissable" *ngIf="msg">
+        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
+        {{ msg }}
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="alert alert-danger alert-dismissable" *ngIf="err">
+        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
+        {{ err }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <img
+        width="300"
+        src="../../../assets/logo.PNG"
+      />
+    </div>
+    <div class="col-sm-8">
+      <form class="form-horizontal">
+
+
+
+        <form >
+          <div class="form-group">
+            <label class="font-weight-bold"l> DPI </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="dpi" name="dpi"
+                type="text"
+                class="form-control"
+
+                placeholder="Ingrese DPI"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold"l> NOMBRE </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="nombre" name="nombre"
+                type="text"
+                class="form-control"
+
+                placeholder="Ingrese nombre"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold"l> USUARIO </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="nombre" name="usuario"
+                type="text"
+                class="form-control"
+
+                placeholder="Ingrese nombre de usuario"
+              />
+            </div>
+          </div>
+
+
+
+          <div class="form-group">
+            <label class="font-weight-bold"l> DIRECCION </label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="direccion" name="direccion"
+                type="text"
+                class="form-control"
+
+                placeholder="Ingrese direccion"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold"l> PERFIL </label>
+            <div class="col-sm-10">
+              <select   [(ngModel)]="perfil" name="perfil" class="custom-select "  required>
+
+                <option value="ADMIN">Administrador</option>
+                <option value="TECNICO" >Tecnico</option>
+
+              </select>
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <label class="font-weight-bold" for="customFileLang">FOTO</label>
+          <div class="custom-file">
+            <input  type="file" class="custom-file-input" id="customFileLang" lang="es">
+
+          </div>
+        </div>
+          <br />
+          <div class="text-center ">
+
+              <button
+
+                class="btn btn-lg btn-block btn-success"
+                matTooltip="Guardar Cambios"
+                (click)="saveOrUpdate()"
+              >
+                {{nombreBoton}}
+              </button>
+              <button
+              matTooltip="Limpiar campos"
+                class="btn btn-lg btn-block btn-secondary"
+                (click)="limpiar()"
+              >
+                Limpiar
+              </button>
+
+          </div>
+        </form>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="table-responsive">
+      <br />
+      <table class="table table-bordered ">
+        <thead >
+          <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let element of tableModel | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+            <td>{{element.usuario}}</td>
+            <td>{{element.nombre}}</td>
+
+
+            <td style="width: 10vw;">
+
+                <button
+                matTooltip="Eliminar Registros"
+                class="btn btn-sm btn-danger"
+                (click)="eliminar(element)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button
+              matTooltip="Editar Registros"
+              class="btn btn-sm btn-success"
+              (click)="seleccionaEditar(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+          </td>
+
+        </tbody>
+      </table>
+      <pagination-controls
+        (pageChange)="pageActual = $event"
+      ></pagination-controls>
+    </div>
+    <div class="col-sm-4" [hidden]="hideUpdate"></div>
+  </div>
+
+<!--spinner-->
+<div class="loading-spinner">
+
+  <ngx-spinner diameter="40" strokeWidth="2" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff"
+    type="ball-fussion">
+    <h1 mat-dialog-title class="title-loading" style="color: white;">Cargando...</h1>
+
+  </ngx-spinner>
+</div>
