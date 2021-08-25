@@ -1,3 +1,4 @@
+import { AuthService } from './servicios/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'pedidos';
 
+
+  constructor(private authService:AuthService) { }
+  autenticado:boolean =false;
+  ngOnInit() {
+      this.autenticado = this.authService.isAuth();
+  }
 
 }

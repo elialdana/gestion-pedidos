@@ -1,3 +1,4 @@
+import { AuthService } from './../../../servicios/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private authService:AuthService) { }
+  autenticado:boolean =false;
   ngOnInit() {
+      this.autenticado = this.authService.isAuth();
   }
 
 }
