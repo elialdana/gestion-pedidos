@@ -14,7 +14,7 @@ const Pedido  = function(pedido) {
 };
 
 Pedido.create = (newPedido, result) => {
-  sql.query("INSERT INTO pedido_cliente SET ?", newPedido, (err, res) => {
+  sql.query("INSERT INTO pedidos SET ?", newPedido, (err, res) => {
    
     if (err) {
       console.log("error: ", err);
@@ -28,7 +28,7 @@ Pedido.create = (newPedido, result) => {
 };
 
 Pedido.findById = (id, result) => {
-  sql.query(`SELECT * FROM pedido_cliente WHERE id = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM pedidos WHERE id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -51,7 +51,7 @@ Pedido.getAll = result => {
   
   
    
-  sql.query("SELECT * FROM pedido_cliente",
+  sql.query("SELECT * FROM pedidos",
    (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -59,7 +59,7 @@ Pedido.getAll = result => {
       return;
     }
 
-    console.log("pedido_cliente: ", res);
+    console.log("pedidos: ", res);
     result(null, res);
     return;
   });
@@ -67,7 +67,7 @@ Pedido.getAll = result => {
 
 Pedido.updateById = (id, pedido, result) => {
   sql.query(
-    "UPDATE pedido_cliente SET direccion = ?, estado = ?,  direccion = ? ,FECHA_ENTREGA=? WHERE id = ?",
+    "UPDATE pedidos SET direccion = ?, estado = ?,  direccion = ? ,FECHA_ENTREGA=? WHERE id = ?",
     [pedido.direccion, pedido.estado, pedido.direccion,pedido.fecha_entrega, id],
     (err, res) => {
       if (err) {
@@ -89,7 +89,7 @@ Pedido.updateById = (id, pedido, result) => {
 };
 
 Pedido.remove = (id, result) => {
-  sql.query("update pedido_cliente set estado='C' WHERE id = ?", id, (err, res) => {
+  sql.query("update pedidos set estado='C' WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

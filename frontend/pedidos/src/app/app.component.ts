@@ -11,9 +11,13 @@ export class AppComponent {
 
 
   constructor(private authService:AuthService) { }
-  autenticado:boolean =false;
+
   ngOnInit() {
-      this.autenticado = this.authService.isAuth();
+    this.autenticado();
+
   }
 
+  autenticado(){
+    return this.authService.isAuth();
+  }
 }

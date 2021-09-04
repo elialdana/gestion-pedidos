@@ -78,15 +78,17 @@ exports.findLogin = (req, res) => {
   console.log(req.body)
  Usuario.findById(req.body.usuario, (err, data) => {
 
-  const {usuario,password,perfil} =data;
+  const {usuario,nombre,password,perfil} =data;
 
    console.log('ESTO RETORNA',data);
    resp.respuesta=false;
    if(data!=null){
-
+    
+    console.log('pass',req.body.password)
+    console.log('password===req.body.password ',password===req.body.password);
    if(usuario===req.body.usuario && password===req.body.password){
       console.log('login', 'OK');
-      const token = jwt.sign({usuario,perfil},'umg')
+      const token = jwt.sign({usuario,nombre,perfil},'umg',{expiresIn:'1h'})
     
 
       resp.respuesta=true;

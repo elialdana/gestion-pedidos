@@ -1,33 +1,22 @@
 
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
-  <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Bienvenido</mat-card-title>
-    </mat-card-header>
-    <br>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit">
-      <mat-card-content>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Usuario" formControlName="username">
-        </mat-form-field>
-<!--
-       <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" formControlName="password">
-        </mat-form-field>
--->
-        <mat-form-field class="example-full-width">
-          <mat-label>Ingrese su contraseña</mat-label>
-          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
 
-      </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block" (click)="validarUsuario()">Ingresar</button>
-    </form>
+<div   class="login-form  col-md-4 offset-md-4">
 
-  </mat-card>
+  <h1 class="title" >Bienvenido</h1>
+
+  <form [formGroup]="loginForm">
+    <div class="form-group">
+      <label>Usuario</label>
+      <input matInput formControlName="username" type="text" name="username" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Constraseña</label>
+      <input matInput type="password"  formControlName="password" name="password" class="form-control">
+    </div>
+    <button class="btn btn-primary btn-block" (click)="validarUsuario()"> Ingresar</button>
+  </form>
+
 
 </div>
+

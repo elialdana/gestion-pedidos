@@ -1,0 +1,63 @@
+<div class="container app">
+
+  <div class="row">
+    <div class="col-sm-4">
+      <img
+        width="300"
+        src="../../../assets/logo.PNG"
+      />
+    </div>
+    <div class="col-sm-8">
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="table-responsive">
+      <br />
+      <div class="d-flex justify-content-end">
+        <button mat-button (click)="agregar()" class="btn btn-success">Agregar</button>
+      </div>
+
+      <table class="table table-bordered ">
+        <thead >
+          <tr>
+
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>comentario</th>
+            <th>Usuario Asignado</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let element of tableModel | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+
+            <td>{{element.id}}</td>
+            <td>{{element.cliente_id}}  </td>
+            <td>{{element.comentario}}</td>
+            <td>{{element.usuario_asignado}}</td>
+            <td>{{element.estado}}</td>
+
+            <td style="width: 10vw;">
+
+              <button
+
+              class="btn btn-sm btn-success"
+
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+          </td>
+
+        </tbody>
+      </table>
+      <pagination-controls
+        (pageChange)="pageActual = $event"
+      ></pagination-controls>
+    </div>
+    <div class="col-sm-4" [hidden]="hideUpdate"></div>
+  </div>
+
+

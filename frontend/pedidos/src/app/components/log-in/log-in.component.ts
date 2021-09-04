@@ -2,7 +2,7 @@ import { AuthService } from './../../servicios/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import * as crypto from 'crypto-js';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -30,17 +30,20 @@ export class LogInComponent implements OnInit {
     }
 
     validarUsuario() {
-
+      let password =crypto.SHA512(this.loginForm.value.password).toString();
      const login = {
         usuario: this.loginForm.value.username,
-        password: this.loginForm.value.password
+        password: password
       };
 
       this.authService.singin(login).subscribe((res:any)=>{
         console.log(res);
         localStorage.setItem('token',res.token);
-        this.router.navigate(['menu']);
+        this.router.navigate(['cliente']);
      });
 
     }
+
+
+
 }

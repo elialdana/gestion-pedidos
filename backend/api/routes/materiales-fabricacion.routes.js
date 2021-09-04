@@ -3,17 +3,17 @@ module.exports = app => {
 
   
   // Create a new materialesProveedor
-  app.post("/materialesProveedor", materialesProveedor.create);
+  app.post("/api/materialesProveedor", materialesProveedor.create);
   // Retrieve all materialesProveedor
-  app.get("/materialesProveedor", materialesProveedor.findAll);
+  app.get("/api/materialesProveedor", materialesProveedor.findAll);
   // Retrieve a single materialesProveedor with id
-  app.get("/materialesProveedormaterialesProveedor/:id", materialesProveedor.findOne);
+  app.get("/api/materialesProveedor/:id", materialesProveedor.findOne);
 
   // Update a proveedor with id
-  app.put("/materialesProveedor/:id", materialesProveedor.update);
+  app.put("/api/materialesProveedor/:id", materialesProveedor.update);
 
   // Delete a materialesProveedor with id
-  app.delete("/materialesProveedor/:id", materialesProveedor.delete);
+  app.delete("/api/materialesProveedor/:id", materialesProveedor.delete);
 
 
 };

@@ -1,30 +1,34 @@
+import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Servicios } from './../../servicios/servicios.service';
 import { AlertDialogComponent } from './../alert-dialog/alert-dialog.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import * as crypto from 'crypto-js';
-@Component({
-  selector: 'app-usuario',
-  templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.css']
-})
-export class UsuarioComponent implements OnInit {
 
-  usuario: string = '';
-  dpi: string = '';
-  password: string = '';
+@Component({
+  selector: 'app-materiales',
+  templateUrl: './materiales.component.html',
+  styleUrls: ['./materiales.component.css']
+})
+export class MaterialesComponent implements OnInit {
+
+
+  id: string = '';
+  codigo: string = '';
   nombre: string = '';
-  direccion: string = '';
+  descripcion: string = '';
+  precioVenta: string = '';
+  precioCompra: string = '';
+  stock: number=0;
   telefono: string = '';
-  perfil: string = 'TECNICO';
-  foto: string = '';
+  correo: string = '';
+  estado: string = 'true';
+  proveedor:string='';
 
   nombreBoton: string = 'Guardar';
   //VARIABLES Y OBJETOS
-  nameAPP = 'USUARIOS';
+  nameAPP = 'MaterialS';
   tableModel: any[] = [];
-
+  listaProveedores: any[] = [];
   constructor(
     private servicios: Servicios,
     private spinner: NgxSpinnerService,
@@ -43,11 +47,13 @@ export class UsuarioComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getAll();
+    this.comboProveedores();
+    this.obtenerMaterials();
   }
 
   saveOrUpdate() {
-    if (this.nombreBoton ==  'Guardar') {
+    console.log('id', this.id);
+    if (this.id == null || this.id == '') {
       this.agregar();
     } else {
       this.modificar();
@@ -74,23 +80,21 @@ export class UsuarioComponent implements OnInit {
       if (result) {
         if (result.value) {
 
-          this.password =crypto.SHA512(this.dpi).toString();
-          console.log('pass ', this.password)
           this.spinner.show();
-          let request = {
-            usuario:this.usuario,
-            dpi:this.dpi,
-            password: this.password,
-
-            nombre:this.nombre,
-            direccion:this.direccion,
-            telefono:this.telefono,
-            perfil:this.perfil,
-            foto:this.foto,
-            estado:'A'
+          let Material = {
+            codigo: this.codigo,
+            nombre: this.nombre,
+            descripcion: this.descripcion,
+            estado: this.estado == 'true' ? 'A' : 'I',
+            stock:this.stock,
+            precio_venta: this.precioVenta,
+            precio_compra:this.precioCompra,
+            email_notificacion:this.correo,
+            telefono_notificacion:this.telefono,
+            proveedor_id:this.proveedor
           };
 
-          this.servicios.saveUsuario(request).subscribe((res: any) => {
+          this.servicios.saveMaterial(Material).subscribe((res: any) => {
             console.log(res)
             this.tableModel.push(res);
 
@@ -114,9 +118,9 @@ export class UsuarioComponent implements OnInit {
     });
 
   }
-  getAll() {
+  obtenerMaterials() {
     this.tableModel = [];
-    this.servicios.getAllUsuario().subscribe((res: any) => {
+    this.servicios.getAllMaterial().subscribe((res: any) => {
       for (let element of res) {
         this.tableModel.push(element);
       }
@@ -125,16 +129,17 @@ export class UsuarioComponent implements OnInit {
 
   limpiar() {
     this.spinner.show();
-
-    this.usuario='';
-    this.dpi='';
-    this.password='';
-    this.nombre='';
-    this.direccion='';
+    this.nombre = '';
+    this.codigo = '';
+    this.descripcion = '';
+    this.estado = 'true';
+    this.precioCompra = '';
+    this.precioVenta = '';
     this.telefono='';
-    this.perfil='';
-    this.foto='';
+    this.correo='';
     this.nombreBoton = 'Guardar';
+    this.id='';
+    this.proveedor='';
     this.spinner.hide();
   }
 
@@ -163,21 +168,23 @@ export class UsuarioComponent implements OnInit {
       if (result) {
         if (result.value) {
           this.spinner.show();
-          let request = {
-            usuario:this.usuario,
-            dpi:this.dpi,
-            password:this.password,
+          let Material = {
+            id:this.id,
+            codigo: this.codigo,
+            nombre: this.nombre,
+            descripcion: this.descripcion,
+            estado: this.estado == 'true' ? 'A' : 'I',
+            proveedor_id:this.proveedor,
+            precio_venta: this.precioVenta,
+            precio_compra:this.precioCompra,
+            email_notificacion:this.correo,
+            telefono_notificacion:this.telefono,
 
-            nombre:this.nombre,
-            direccion:this.direccion,
-            telefono:this.telefono,
-            perfil:this.perfil,
-            foto:this.foto
           };
 
-          this.servicios.updateUsuario(request, request.usuario).subscribe((res: any) => {
-
-            this.getAll();
+          this.servicios.updateMaterial(Material, Material.id).subscribe((res: any) => {
+            console.log('updateMaterial', res)
+            this.obtenerMaterials();
 
             this.limpiar();
             this.dialogoInformacion(`Los datos se guardaron de forma exitosa`);
@@ -191,19 +198,17 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-  seleccionaEditar(user: any): void {
-
+  seleccionaEditar(i: any): void {
+    console.log('Material a modificar ', i)
+    this.id = i.id;
 
     this.nombreBoton = 'Modificar';
-    this.usuario=user.usuario;
-    this.dpi= user.dpi;
-    this.password=user.password;
-    this.nombre=user.nombre;
-    this.direccion=user.direccion;
-    this.telefono=user.telefono;
-    //this.email=user.email;
-    this.perfil=user.perfil;
-    this.foto=user.foto;
+    this.nombre = i.nombre;
+    this.codigo = i.codigo;
+    this.descripcion = i.descripcion;
+    this.estado = i.estado == 'A' ? 'true' : 'false';
+    this.precioCompra = i.precio_compra;
+    this.precioVenta= i.precio_venta;
 
 
   }
@@ -226,9 +231,9 @@ export class UsuarioComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.value) {
-          this.servicios.deleteUsuario(id).subscribe((res: any) => {
-            console.log('deleteProducto', res)
-            this.getAll();
+          this.servicios.deleteMaterial(id).subscribe((res: any) => {
+            console.log('deleteMaterial', res)
+            this.obtenerMaterials();
             this.dialogoInformacion('Transacción exitosa');
           });
         }
@@ -253,4 +258,21 @@ export class UsuarioComponent implements OnInit {
     });
 
   }
+
+
+  comboProveedores() {
+
+      this.listaProveedores = [];
+      let lista = this.servicios.getAllProveedor();
+
+      lista.forEach((element: any[]) => {
+        element.forEach(e => {
+
+          this.listaProveedores.push({ codigo: e.id, nombre: e.nombre});
+        });
+      });
+    }
+
 }
+
+

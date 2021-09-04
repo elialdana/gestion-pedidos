@@ -31,8 +31,8 @@ Usuario.create = (newUser, result) => {
 
 Usuario.findById = (userID, result) => {
   
-  console.log("SELECT * FROM usuarios WHERE usuario = ?",[userID])
-  sql.query("SELECT usuario, password, perfil FROM usuarios WHERE usuario = ?",[userID], (err, res) => {
+  
+  sql.query("SELECT usuario,nombre, password, perfil FROM usuarios WHERE usuario = ?",[userID], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

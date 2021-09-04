@@ -12,14 +12,14 @@ const MaterialesFabricacion = function(materialesFabricacion) {
   this.telefono_notificacion = materialesFabricacion.telefono_notificacion;
   this.email_notificacion = materialesFabricacion.email_notificacion;
   this.stock = materialesFabricacion.stock;
-  this.fecha_registro = materialesFabricacion.fecha_registro;
+  this.fecha_registro = new Date();
   this.fecha_modificacion = materialesFabricacion.fecha_modificacion;
   this.estado = materialesFabricacion.estado;
 
 };
 
 MaterialesFabricacion.create = (newMaterialesFabricacion, result) => {
-  sql.query("INSERT INTO materiales_fabricacion SET ?", newMaterialesFabricacion, (err, res) => {
+  sql.query("INSERT INTO materiales SET ?", newMaterialesFabricacion, (err, res) => {
    
     if (err) {
       console.log("error: ", err);
@@ -33,7 +33,7 @@ MaterialesFabricacion.create = (newMaterialesFabricacion, result) => {
 };
 
 MaterialesFabricacion.findById = (materialesFabricacion, result) => {
-  sql.query(`SELECT * FROM materiales_fabricacion WHERE id = ${materialesFabricacion}`, (err, res) => {
+  sql.query(`SELECT * FROM materiales WHERE id = ${materialesFabricacion}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -53,7 +53,7 @@ MaterialesFabricacion.findById = (materialesFabricacion, result) => {
 
 MaterialesFabricacion.getAll = result => {
        
-  sql.query("SELECT * FROM materiales_fabricacion",
+  sql.query("SELECT * FROM materiales where estado='A'",
    (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -69,8 +69,8 @@ MaterialesFabricacion.getAll = result => {
 
 MaterialesFabricacion.updateById = (id, materialesFabricacion, result) => {
   sql.query(
-    "UPDATE materiales_fabricacion SET NOMBRE = ?, DESCRIPCION = ?, stock =?, fecha_ingreso=?  WHERE id = ?",
-    [materialesFabricacion.nombre, materialesFabricacion.descripcion, materialesFabricacion.stock,materialesFabricacion.fecha_ingreso, id],
+    "UPDATE materiales SET NOMBRE = ?, DESCRIPCION = ?, stock =?,telefono_notificacion=?,  email_notificacion=? ,fecha_modifico=CURRENT_TIMESTAMP() WHERE id = ?",
+    [materialesFabricacion.nombre, materialesFabricacion.descripcion, materialesFabricacion.stock,materialesFabricacion.telefono_notificacion,materialesFabricacion.email_notificacion ,id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -91,7 +91,7 @@ MaterialesFabricacion.updateById = (id, materialesFabricacion, result) => {
 };
 
 MaterialesFabricacion.remove = (id, result) => {
-  sql.query("update  materiales_fabricacion set estado='I' WHERE id = ?", id, (err, res) => {
+  sql.query("update  materiales set estado='I' WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -104,22 +104,10 @@ MaterialesFabricacion.remove = (id, result) => {
       return;
     }
 
-    console.log("deleted materiales_fabricacion with id: ", id);
+    console.log("deleted materiales with id: ", id);
     result(null, res);
   });
 };
 
-MaterialesFabricacion.removeAll = result => {
-  sql.query("DELETE FROM materiales_fabricacion", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
-
-    console.log(`deleted ${res.affectedRows} materiales_fabricacion`);
-    result(null, res);
-  });
-};
 
 module.exports = MaterialesFabricacion;

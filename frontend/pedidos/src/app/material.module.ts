@@ -93,7 +93,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         FormsModule,
         ReactiveFormsModule,
         NgxSpinnerModule,
-
+        MatStepperModule
     ]
 })
 export class MaterialModule { }

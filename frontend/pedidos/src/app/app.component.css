@@ -3,4 +3,10 @@
   margin-top: 20px;
   padding: 30px;
   background: #fff;
+
 }
+*{
+
+  background-size: cover;
+  background-repeat: no-repeat;
+ }

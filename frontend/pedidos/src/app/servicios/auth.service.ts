@@ -17,11 +17,19 @@ export class AuthService {
   singin(user:any){
     return this.http.post(`${this.URL}/usuario/authenticate`,user);
   }
+  loginOut(){
+
+    localStorage.removeItem("token");
+
+
+
+  }
 
   isAuth():boolean{
 
     const token = localStorage.getItem('token');
      let  token2 =token?token:'';
+
     if(this.jwtHelper.isTokenExpired(token2) || !localStorage.getItem('token')){
       return false;
     }
@@ -30,6 +38,7 @@ export class AuthService {
 
     return true;
   }
+
 
 
 }

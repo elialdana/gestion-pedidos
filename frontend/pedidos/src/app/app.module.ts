@@ -1,3 +1,10 @@
+import { MaterialesComponent } from './components/materiales/materiales.component';
+import { AgregarPedidoComponent } from './components/pedido/agregar-pedido/agregar-pedido.component';
+import { ListaPedidoComponent } from './components/pedido/lista-pedido/lista-pedido.component';
+
+
+
+
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -35,7 +42,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UsuarioComponent,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    ListaPedidoComponent,
+    AgregarPedidoComponent,
+    MaterialesComponent
+
   ],
   imports: [
     BrowserModule,

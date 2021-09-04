@@ -1,0 +1,128 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+
+          <div class="card-header card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">assignment</i>
+            </div>
+            <h4 class="card-title">TOMA DE PEDIDO</h4>
+          </div>
+
+          <mat-horizontal-stepper linear #stepper>
+            <mat-step >
+              <ng-template matStepLabel>Datos de identificacion</ng-template>
+              <div class="col-sm-8">
+                <form class="form-horizontal">
+
+
+
+                  <form >
+
+                    <!-- NOMBRE -->
+                    <div class="form-group">
+                      <label class="font-weight-bold"l> CLIENTE </label>
+                      <div class="col-sm-10">
+
+                          <mat-select class="form-control"   [(ngModel)]="cliente" name="cliente" placeholder="Seleccione" required>
+                            <mat-option *ngFor="let e of listaClientes" [value]="e.codigo">
+                              {{e.nombre}}
+                            </mat-option>
+
+                          </mat-select>
+                       </div>
+                    </div>
+
+
+
+                   <!-- DESCRIPCION -->
+                   <br>
+                   <div class="form-group">
+                    <label class="font-weight-bold"> COMENTARIO </label>
+                    <div class="col-sm-10">
+                      <input
+                        type="text"
+                        class="form-control"
+
+                        placeholder="Ingrese una direccion del cliente"
+                      />
+                    </div>
+                  </div>
+
+                  <br>
+                  <br>
+                  <div class="form-group">
+                   <label class="font-weight-bold"> USUARIO ASIGNADO </label>
+                   <div class="col-sm-10">
+                    <mat-select class="form-control"   [(ngModel)]="usuarioAsignado" name="usuarioAsignado" placeholder="Seleccione" required>
+                      <mat-option *ngFor="let e of listaUsuarios" [value]="e.codigo">
+                        {{e.nombre}}
+                      </mat-option>
+
+                    </mat-select>
+                 </div>
+                </div>
+                    <br />
+                    <div class="text-center ">
+
+                      <button
+
+                      class="btn btn-success"
+                      (click)="guardarDatosIdentificacion()"
+                    >
+                      Guardar
+                    </button>
+
+                    </div>
+                  </form>
+                </form>
+              </div>
+
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Detalle del pedido</ng-template>
+                <div class="row">
+                  <div class="table-responsive">
+                    <br />
+                    <table class="table table-bordered ">
+                      <thead >
+                        <tr>
+
+                          <th>Nombre</th>
+                          <th>Telefono</th>
+                          <th>Email</th>
+                          <th>Dirección</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr  *ngFor="let element of tableMateriales | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+
+
+                          <td style="width: 10vw;">
+
+                        </td>
+
+                      </tbody>
+                    </table>
+                    <pagination-controls
+                      (pageChange)="pageActual = $event"
+                    ></pagination-controls>
+                  </div>
+
+                </div>
+
+           </mat-step>
+           <mat-step>
+          <ng-template matStepLabel>Procesar</ng-template>
+
+          </mat-step>
+        </mat-horizontal-stepper>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

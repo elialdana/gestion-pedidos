@@ -27,18 +27,20 @@
 
 
         <form >
+          <!-- CODIGO -->
           <div class="form-group">
-            <label class="font-weight-bold"l> DPI </label>
+            <label class="font-weight-bold"> CODIGO </label>
             <div class="col-sm-10">
               <input
-              [(ngModel)]="dpi" name="dpi"
+              [(ngModel)]="codigo" name="codigo"
                 type="text"
                 class="form-control"
-
-                placeholder="Ingrese DPI"
+                placeholder="Ingrese el código"
               />
             </div>
           </div>
+          <br>
+          <!-- NOMBRE -->
           <div class="form-group">
             <label class="font-weight-bold"l> NOMBRE </label>
             <div class="col-sm-10">
@@ -47,63 +49,123 @@
                 type="text"
                 class="form-control"
 
-                placeholder="Ingrese nombre"
+                placeholder="Ingrese el nombre"
+              />
+            </div>
+          </div>
+          <!-- PROVEEDOR -->
+          <div class="form-group">
+            <label class="font-weight-bold"l> PROVEEDOR </label>
+            <div class="col-sm-10">
+              <mat-select class="form-control"   [(ngModel)]="proveedor" name="proveedor" placeholder="Seleccione" required>
+                <mat-option *ngFor="let e of listaProveedores" [value]="e.codigo">
+                  {{e.nombre}}
+                </mat-option>
+
+              </mat-select>
+            </div>
+          </div>
+
+          <br>
+          <div class="form-group">
+            <label class="font-weight-bold">  PRECIO VENTA</label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="precioVenta" name="precioVenta"
+                type="number"
+                class="form-control"
+
+                placeholder="Ingrese precio de venta"
+              />
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="font-weight-bold">  PRECIO COMPRA</label>
+            <div class="col-sm-10">
+              <input
+              [(ngModel)]="precioCompra" name="precioVenta"
+                type="number"
+                class="form-control"
+
+                placeholder="Ingrese precio de compra"
               />
             </div>
           </div>
           <div class="form-group">
-            <label class="font-weight-bold"l> USUARIO </label>
+            <label class="font-weight-bold">TELEFONO NOTIFICACION</label>
             <div class="col-sm-10">
               <input
-              [(ngModel)]="usuario" name="usuario"
+              [(ngModel)]="telefono" name="precio"
                 type="text"
                 class="form-control"
 
-                placeholder="Ingrese nombre de usuario"
+                placeholder="Notificacion de falta de inventario"
               />
             </div>
           </div>
-
-
-
           <div class="form-group">
-            <label class="font-weight-bold"l> DIRECCION </label>
+            <label class="font-weight-bold">CORREO NOTIFICACION</label>
             <div class="col-sm-10">
               <input
-              [(ngModel)]="direccion" name="direccion"
-                type="text"
+              [(ngModel)]="correo" name="precio"
+                type="email"
                 class="form-control"
 
-                placeholder="Ingrese direccion"
+
               />
             </div>
           </div>
+         <!-- DESCRIPCION -->
+         <br>
+         <div class="form-group">
+          <label class="font-weight-bold"> DESCRIPCION </label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="descripcion" name="descripcion"
+              placeholder="Ingrese la descripción del producto"
+            />
+          </div>
+        </div>
+          <!-- CANTIDAD -->
+          <br>
           <div class="form-group">
-            <label class="font-weight-bold"l> PERFIL </label>
-            <div class="col-sm-10">
-              <select   [(ngModel)]="perfil" name="perfil" class="custom-select "  required>
-
-                <option value="ADMIN">Administrador</option>
-                <option value="TECNICO" >Tecnico</option>
-
-              </select>
+           <label class="font-weight-bold"> CANTIDAD </label>
+           <div class="col-sm-10">
+             <input
+               type="text"
+               class="form-control"
+               [(ngModel)]="stock" name="stock"
+               placeholder="Ingrese la cantidad en existencia"
+             />
+           </div>
+         </div>
+        <br>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label class="font-weight-bold"> ACTIVO </label>
+              </div>
+              <div class="col-9">
+                <mat-checkbox [(ngModel)]="estado" name="estado" ></mat-checkbox>
+              </div>
             </div>
           </div>
 
           <br />
-
           <div class="text-center ">
 
               <button
 
-                class="btn btn-success"
-                matTooltip="Guardar Cambios"
+                class="btn  btn-success"
                 (click)="saveOrUpdate()"
               >
                 {{nombreBoton}}
               </button>
               <button
-              matTooltip="Limpiar campos"
+
                 class="btn btn-secondary"
                 (click)="limpiar()"
               >
@@ -122,29 +184,32 @@
       <table class="table table-bordered ">
         <thead >
           <tr>
-            <th>Usuario</th>
+            <th>Código</th>
             <th>Nombre</th>
-
+            <th>Descripcion</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr  *ngFor="let element of tableModel | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
-            <td>{{element.usuario}}</td>
-            <td>{{element.nombre}}</td>
 
+            <td>{{element.codigo}}</td>
+            <td>{{element.nombre}}</td>
+            <td>{{element.descripcion}}</td>
+            <td>{{element.estado}}</td>
 
             <td style="width: 10vw;">
 
                 <button
-                matTooltip="Eliminar Registros"
+
                 class="btn btn-sm btn-danger"
                 (click)="eliminar(element)"
               >
                 <mat-icon>delete</mat-icon>
               </button>
               <button
-              matTooltip="Editar Registros"
+
               class="btn btn-sm btn-success"
               (click)="seleccionaEditar(element)"
             >

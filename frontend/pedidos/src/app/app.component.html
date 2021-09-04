@@ -1,12 +1,17 @@
 <!-- Toolbar -->
 
-<app-header *ngIf="autenticado"></app-header>
-<app-sidebar *ngIf="autenticado"></app-sidebar>
+<div  *ngIf="autenticado()">
+  <app-header></app-header>
+  <app-sidebar ></app-sidebar>
+</div>
+
 <div class="content-wrapper">
 
   <router-outlet></router-outlet>
 
 
 </div>
+<div  *ngIf="autenticado()">
+  <app-footer></app-footer>
+</div>
 
-<app-footer *ngIf="autenticado"></app-footer>
