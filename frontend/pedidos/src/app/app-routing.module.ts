@@ -15,14 +15,12 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: 'agregar-pedido', component: AgregarPedidoComponent },
   {path: 'login', component: LogInComponent},
-  {path: 'producto', component: ProductoComponent,canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
-  {path: 'proveedor', component: ProveedorComponent, canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
-  {path: 'cliente', component: ClienteComponent,canActivate: [AuthGuard] },
-  {path: 'usuario', component: UsuarioComponent,canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
-  {path: 'pedido', component: ListaPedidoComponent,//,canActivate: [AuthGuard]
-
-  },
-  {path: 'materiales', component: MaterialesComponent,canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
+  {path: 'producto', component: ProductoComponent},//canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
+  {path: 'proveedor', component: ProveedorComponent},// canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
+  {path: 'cliente', component: ClienteComponent},//,canActivate: [AuthGuard] },
+  {path: 'usuario', component: UsuarioComponent},//,canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
+  {path: 'pedido', component: ListaPedidoComponent},//,canActivate: [AuthGuard]  },
+  {path: 'materiales', component: MaterialesComponent}//,canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
 ];
 
 @NgModule({
