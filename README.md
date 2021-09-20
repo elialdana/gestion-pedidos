@@ -1,7 +1,5 @@
-# Control de pedidos (Proyecto de Graduacion Vilma Aldana)
-
-Proyecto para el control de pedidos y materiales utilizados en la fabricacion de un producto.
-
+# Proyecto de Graduacion Vilma Aldana
+## SISTEMA WEB PARA LA GESTIÓN Y CONTROL DE PEDIDOS Y PAGOS DE TALLER LOS CHARROS, UBICADO EN EL MUNICIPIO DE GUASTATOYA, DEPARTAMENTO DE EL PROGRESO
 ## Instalar Herramientas
 ### 1. IDE Visual studio code:
 <br>1.1 Descargar el instalador en la pagina https://code.visualstudio.com/
