@@ -44,35 +44,44 @@ Para la base de datos por comodidad utilizaremos el stack Xampp, pero utilizarem
 
 
 ## Levantar proyecto
-### Gestor de base de datos MySQL
- 1. Abrimos el panel de Xamp y hacemos clic en start a MySQL y Apache.
+### 1. Crear la base de datos
+ 1. Abrimos el panel de Xampp y hacemos clic en start a MySQL y Apache.
  <br> ![image](https://user-images.githubusercontent.com/38637350/133940203-df0c5101-fe9d-4ee0-b51f-5b9f87ffc638.png)
  2. Con ayuda de un navegador ingresamos a http://localhost/phpmyadmin/
  3. Procedemos a crear la base de datos, damos clic en new (nuevo).
  <br> ![image](https://user-images.githubusercontent.com/38637350/133940345-51df5790-1604-4e26-b477-5c76e2712308.png)
  <br> se mostrara la siguiente pantalla en donde ingresamos el nombre taller_charros y hacemos clic en create (crear)
  ![image](https://user-images.githubusercontent.com/38637350/133940373-a1c1988c-1a4b-449e-b193-0a947210232b.png)
+ 4. Seleccionamos la base de datos que creamos en el paso 3, hacemos clic en la seccion importar, seleccionamos el archivo bd.sql que se encuentra dentro del proyecto
+    y hacemos clic en go.
+ <br>   ![image](https://user-images.githubusercontent.com/38637350/133946863-417a797c-d69d-4786-9262-1fa35683347f.png)
+
+### 2. Levantar proyecto backend y frontend
+ 1. Abrimos la carpeta descargada o clonada de git () con Visual Studio Code.
+<br> ![image](https://user-images.githubusercontent.com/38637350/133947546-f9bbcb08-5f1f-4cc8-9582-5b7b81af5bf7.png)
+<br> ![image](https://user-images.githubusercontent.com/38637350/133947616-493eb5e2-1f6c-46d9-961c-65434067a3bd.png)
+ 2. Seleccionamos la opcion Terminal  
+<br>![image](https://user-images.githubusercontent.com/38637350/133947664-ba4cc823-fb91-4de5-bed3-9d0bd934bacb.png)
+ 3. Levantando backend
+ 3.1 Con el comando <b>cd</b> nos dirigimos a la carpeta backend.
+ 3.2 Ejecutamos el comando npm install para descargar todas las librerias necesarias.
+ ![image](https://user-images.githubusercontent.com/38637350/133947787-c0fc94ac-37ca-4ee9-ab43-439916d1da8c.png)
+
+ 3.3 Ejecutamos el comando  <b>node server.js</b>
+![image](https://user-images.githubusercontent.com/38637350/133947871-e87148f5-2e4f-451e-add3-4997acf3c6f3.png)
+
+ 4. Levantando frontend
+ 4.1 Agregamos una terminal mas.
+ ![image](https://user-images.githubusercontent.com/38637350/133947948-2fa7b6e7-33dd-4d3c-8e83-5f5106fbe818.png)
+ 4.2 Con el comando <b>cd</b> nos dirigimos a la carpeta frontend luego a pedidos.
+ 4.3 Ejecutamos el comando npm install para descargar todas las librerias necesarias.
+  ![image](https://user-images.githubusercontent.com/38637350/133948034-224dc49e-9fe5-4532-b9c9-7ad4ca481dff.png)
+ 4.4 Ejecutamos el comando npm start 
+ ![image](https://user-images.githubusercontent.com/38637350/133948147-49b9ce09-2dc4-4f0e-ba4f-170ba4deac3b.png)
+ 4.5 Con ayuda de un navegador ingresar a http://localhost:4200/ 
+ 4.6 Ingresar con las siguientes credenciasles:
+           Usuario: admin
+           Contraseña: admin
 
 
-### Backend
-#### Herramientas utilizadas
-
-Para el desarrollo del proyecto backend se utilizo nodejs y mysql 
-
-#### Para levantar el proyecto debe realizar lo siguiente
-#### node
- 1. Abrimos el proyecto con ayuda de 
- 2. Ejecutar el comnado npm install para descargar las librerias necesarias para la compilacion del proyecto.
-    
- 3. Ejecutar el comando node server.js para crear un servidor y poder consumir las apis.
-
-
-
-## Frontend
-### Herramientas utilizadas
-
-Para el desarrollo del proyecto frontend se el framework angular 
-
-#### Para levantar el proyecto debe realizar lo siguiente
- 1. Ejecutar el comnado npm install para descargar las librerias necesarias para la compilacion del proyecto.
- 2. Ejecutar el comando ng serve --o para levantar el proyecto. Abrira la url  http://localhost:4200/
+ 
