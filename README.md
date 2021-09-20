@@ -80,8 +80,8 @@ Para la base de datos por comodidad utilizaremos el stack Xampp, pero utilizarem
  ![image](https://user-images.githubusercontent.com/38637350/133948147-49b9ce09-2dc4-4f0e-ba4f-170ba4deac3b.png)
  4.5 Con ayuda de un navegador ingresar a http://localhost:4200/ 
  4.6 Ingresar con las siguientes credenciasles:
-          <li> Usuario: admin</li>
-           <li>Contraseña: admin</li>
+          <br> Usuario: admin
+           <br>Contraseña: admin
 
 
  
