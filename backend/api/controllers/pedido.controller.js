@@ -1,8 +1,82 @@
 const Pedido = require("../models/pedido.model");
+const PedidoDetalle = require("../models/detalle-pedido.model")
+const Material = require("../models/materiales-utilizados.model")
+exports.procesarPedido = (req, res) => {
+  console.log("procesarPedido creando pedido controller ");
+  console.log("--------------------request",req.body)
+
+  const pedido = new Pedido({
+    cliente_id: req.body.encabezado.cliente_id,
+    comentario: req.body.encabezado.comentario,
+    estado: 'P',
+    direccion: req.body.encabezado.direccion,
+    fecha_entrega: req.body.encabezado.fecha_entrega,
+    usuario_registro:  req.body.encabezado.usuario_asignado,
+    usuario_asignado: req.body.encabezado.usuario_asignado
+
+  });
+  Pedido.create(pedido, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Customer."
+      });
+    else{
+      req.body.detalle.forEach(e => {
+        const detalle  = new PedidoDetalle({
+          pedido_id : data.id,
+          producto_id :e.producto_id,
+          comentario : e.comentario,
+         
+          cantidad : e.cantidad,
+          descuento : e.descuento,
+          monto : e.monto,
+          costo_instalacion : e.costo_instalacion,
+          costo_adicional : e.costo_adicional
+        });
+
+        PedidoDetalle.create(detalle, (err, data) => {
+          if (err){
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Customer."
+          });
+        }else{
+          if( e.listaMateriales){
+
+          
+         e.listaMateriales.forEach(e => {
+            const material = new Material({
+        
+              material_id : e.material_id,
+              detalle_pedido_id :data.id,
+               cantidad: e.cantidad,
+              unidad_medida: e.unidad_medida
+            });
+    
+            Material.create(material, (err, data) => {
+
+          });
+    
+        
+        });
+      }
+        }
+        });
+        
+      });
+      res.send(data);
+    }
+    
+    ;
+  });
 
 
+  
+}
 exports.create = (req, res) => {
-  console.log("reques",req.body)
+  console.log("creando pedido controller ");
+  console.log("--------------------request",req.body)
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -33,6 +107,7 @@ exports.create = (req, res) => {
 
 
 exports.findAll = (req, res) => {
+  
   Pedido.getAll((err, data) => {
     if (err)
       res.status(500).send({

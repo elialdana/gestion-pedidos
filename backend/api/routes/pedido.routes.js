@@ -3,17 +3,17 @@ module.exports = app => {
 
   
   // Create a new pedido
-  app.post("/pedido", pedido.create);
+  app.post("/api/pedido", pedido.procesarPedido);
   // Retrieve all pedido
-  app.get("/pedido", pedido.findAll);
+  app.get("/api/pedido", pedido.findAll);
   // Retrieve a single pedido with id
-  app.get("/pedido/:id", pedido.findOne);
+  app.get("/api/pedido/:id", pedido.findOne);
 
   // Update a pedido with id
-  app.put("/pedido/:id", pedido.update);
+  app.put("/api/pedido/:id", pedido.update);
 
   // Delete a pedido with id
-  app.delete("/pedido/:id", pedido.delete);
+  app.delete("/api/pedido/:id", pedido.delete);
 
 
 };

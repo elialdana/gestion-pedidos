@@ -58,4 +58,11 @@ export class ListaPedidoComponent implements OnInit {
 this.router.navigate(['agregar-pedido']);
   }
 
+  public  estado(estado:string){
+    if('P'==estado){
+      return 'Procesado';
+    }
+
+    return estado;
+  }
 }

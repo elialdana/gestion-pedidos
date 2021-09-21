@@ -37,21 +37,6 @@
 
 
 
-                   <!-- DESCRIPCION -->
-                   <br>
-                   <div class="form-group">
-                    <label class="font-weight-bold"> COMENTARIO </label>
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        class="form-control"
-
-                        placeholder="Ingrese una direccion del cliente"
-                      />
-                    </div>
-                  </div>
-
-                  <br>
                   <br>
                   <div class="form-group">
                    <label class="font-weight-bold"> USUARIO ASIGNADO </label>
@@ -63,16 +48,46 @@
 
                     </mat-select>
                  </div>
+
+                   <!-- direccion -->
+                   <br>
+                   <div class="form-group">
+                    <label class="font-weight-bold"> DIRECCIÓN </label>
+                    <div class="col-sm-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="direccion" name="direccion"
+                        placeholder=""
+                      />
+                    </div>
+                  </div>
+
+                   <!-- DESCRIPCION -->
+                   <br>
+                   <div class="form-group">
+                    <label class="font-weight-bold"> COMENTARIO </label>
+                    <div class="col-sm-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="comentario" name="comentario"
+                        placeholder=""
+                      />
+                    </div>
+                  </div>
+
+
                 </div>
                     <br />
                     <div class="text-center ">
 
-                      <button
+                      <button mat-button matStepperNext
 
                       class="btn btn-success"
                       (click)="guardarDatosIdentificacion()"
                     >
-                      Guardar
+                      Siguiente
                     </button>
 
                     </div>
@@ -83,27 +98,167 @@
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Detalle del pedido</ng-template>
+                <div class="col-sm-8">
+                  <form class="form-horizontal">
+
+
+
+                    <form >
+
+                      <!-- PRODUCTO -->
+                      <div class="form-group">
+                        <label class="font-weight-bold"> PRODUCTO </label>
+                        <div class="col-sm-10">
+
+                            <mat-select class="form-control"   [(ngModel)]="producto" name="producto" placeholder="Seleccione" required>
+                              <mat-option *ngFor="let e of listaProducto" [value]="e.codigo">
+                                {{e.nombre}}
+                              </mat-option>
+
+                            </mat-select>
+                         </div>
+                      </div>
+
+
+
+                    <br>
+                    <div class="form-group">
+                     <label class="font-weight-bold"> COSTO ADICIONAL </label>
+                     <div class="col-sm-10">
+                      <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="costoAdicional" name="costoAdicional"
+                      placeholder=""
+
+                    />
+                   </div>
+
+                     <!-- CONSTO INSTALACION -->
+                     <br>
+                     <div class="form-group">
+                      <label class="font-weight-bold"> COSTO INSTALACIÓN </label>
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="costoInstalacion" name="costoInstalacion"
+                          placeholder=""
+                        />
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                     <label class="font-weight-bold"> CANTIDAD </label>
+                     <div class="col-sm-10">
+                       <input
+                         type="text"
+                         class="form-control"
+                         [(ngModel)]="cantidad" name="cantidad"
+                         placeholder=""
+                       />
+                     </div>
+                   </div>
+                   <div class="form-group">
+                    <label class="font-weight-bold"> DESCUENTO </label>
+                    <div class="col-sm-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="descuento" name="descuento"
+                        placeholder=""
+                      />
+                    </div>
+                  </div>
+                     <!-- DESCRIPCION -->
+                     <br>
+                     <div class="form-group">
+                      <label class="font-weight-bold"> COMENTARIO </label>
+                      <div class="col-sm-10">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="comentarioProducto" name="comentarioProducto"
+                          placeholder=""
+                        />
+                      </div>
+                    </div>
+
+                    <br>
+                  </div>
+
+                      <div class="text-center ">
+                        <button mat-button
+                        matStepperPrevious
+                        class="btn btn-danger"
+
+                      >
+                        Regresar
+                      </button>
+                        <button mat-button
+
+                        class="btn btn-success"
+                        (click)="guardarDetalle()"
+                      >
+                        Agregar Detalle
+                      </button>
+                      <button mat-button
+
+                      class="btn btn-primary"
+                      (click)="procesarPedido()"
+                    >
+                      Procesar Pedido
+                    </button>
+                      </div>
+                    </form>
+                  </form>
+                </div>
                 <div class="row">
                   <div class="table-responsive">
-                    <br />
+
+
                     <table class="table table-bordered ">
                       <thead >
                         <tr>
 
-                          <th>Nombre</th>
-                          <th>Telefono</th>
-                          <th>Email</th>
-                          <th>Dirección</th>
+                          <th>Producto</th>
+                          <th>Cantidad</th>
+                          <th>Costo Adicional</th>
+                          <th>Costo Instalación</th>
+                          <th>Descuento</th>
+                          <th>Monto</th>
+
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr  *ngFor="let element of tableMateriales | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+                        <tr  *ngFor="let element of tableDetallePedido | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
 
 
-                          <td style="width: 10vw;">
+                      <td>{{element.nombre}}</td>
+                      <td>{{element.cantidad}}</td>
+                      <td>{{element.costo_adicional | currency:'GTQ':'symbol-narrow':'0.2'}}</td>
+                      <td>{{element.costo_instalacion | currency:'GTQ':'symbol-narrow':'0.2'}}</td>
+                      <td>{{element.descuento | currency:'GTQ':'symbol-narrow':'0.2'}}</td>
+                      <td>{{element.monto | currency:'GTQ':'symbol-narrow':'0.2'}}</td>
+                      <td style="width: 10vw;">
 
-                        </td>
+                          <button
+
+                          class="btn btn-sm btn-danger"
+                          (click)="eliminarDetalle(element)"
+                        >
+                          <mat-icon>delete</mat-icon>
+                        </button>
+
+                        <button
+
+                        class="btn btn-sm btn-success"
+                        (click)="agregarMaterial(element)"
+                      >
+                        <mat-icon>add</mat-icon>
+                      </button>
+                      </td>
 
                       </tbody>
                     </table>
@@ -115,10 +270,7 @@
                 </div>
 
            </mat-step>
-           <mat-step>
-          <ng-template matStepLabel>Procesar</ng-template>
 
-          </mat-step>
         </mat-horizontal-stepper>
 
         </div>
@@ -126,3 +278,4 @@
     </div>
   </div>
 </div>
+

@@ -58,7 +58,7 @@ Cliente.getAll = result => {
       return;
     }
 
-    console.log("clientes: ", res);
+    
     result(null, res);
     return;
   });

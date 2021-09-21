@@ -34,22 +34,12 @@
           <tr  *ngFor="let element of tableModel | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
 
             <td>{{element.id}}</td>
-            <td>{{element.cliente_id}}  </td>
+            <td>{{element.clienteNombre}}  </td>
             <td>{{element.comentario}}</td>
             <td>{{element.usuario_asignado}}</td>
-            <td>{{element.estado}}</td>
+            <td>{{estado(element.estado)}}</td>
 
-            <td style="width: 10vw;">
 
-              <button
-
-              class="btn btn-sm btn-success"
-
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-
-          </td>
 
         </tbody>
       </table>

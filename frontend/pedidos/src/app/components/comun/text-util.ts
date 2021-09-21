@@ -12,5 +12,16 @@ export class TextUtil {
 
     return code;
   }
+
+
+  static estado(code: string)
+  {
+    if (code==="P")
+    {
+      return "Procesado";
+    }
+
+    return code;
+  }
 }
 

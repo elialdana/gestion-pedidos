@@ -11,7 +11,7 @@ const MaterialesUtilizados = function(materiales) {
 };
 
 MaterialesUtilizados.create = (newMateriales, result) => {
-  sql.query("INSERT INTO materiales_fabricacion SET ?", newMateriales, (err, res) => {
+  sql.query("INSERT INTO materiales_utilizados SET ?", newMateriales, (err, res) => {
    
     if (err) {
       console.log("error: ", err);
@@ -25,7 +25,7 @@ MaterialesUtilizados.create = (newMateriales, result) => {
 };
 
 MaterialesUtilizados.findById = (materiales, result) => {
-  sql.query(`SELECT * FROM materiales_fabricacion WHERE id = ${materiales}`, (err, res) => {
+  sql.query(`SELECT * FROM materiales_utilizados WHERE id = ${materiales}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -45,7 +45,7 @@ MaterialesUtilizados.findById = (materiales, result) => {
 
 MaterialesUtilizados.getAll = result => {
        
-  sql.query("SELECT * FROM materiales_fabricacion",
+  sql.query("SELECT * FROM materiales_utilizados",
    (err, res) => {
     if (err) {
       console.log("error: ", err);

@@ -6,7 +6,7 @@ const Pedido  = function(pedidodetalle) {
   this.pedido_id = pedidodetalle.pedido_id;
   this.producto_id = pedidodetalle.producto_id;
   this.comentario = pedidodetalle.comentario;
-  this.direccion = pedidodetalle.direccion;
+  
   this.cantidad = pedidodetalle.cantidad;
   this.descuento = pedidodetalle.descuento;
   this.monto = pedidodetalle.monto;
@@ -21,11 +21,13 @@ Pedido.create = (newPedido, result) => {
       console.log("error: ", err);
       result(err, null);
       return;
-    }
+    }else{
+  
 
-    console.log("created pedidodetalle: ", { id: res.insertId, ...newPedido });
     result(null, { id: res.insertId, ...newPedido });
+  }
   });
+  
 };
 
 Pedido.findById = (id, result) => {

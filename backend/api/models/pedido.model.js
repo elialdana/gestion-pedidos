@@ -14,6 +14,7 @@ const Pedido  = function(pedido) {
 };
 
 Pedido.create = (newPedido, result) => {
+  console.log("creando pedido ");
   sql.query("INSERT INTO pedidos SET ?", newPedido, (err, res) => {
    
     if (err) {
@@ -48,10 +49,10 @@ Pedido.findById = (id, result) => {
 
 Pedido.getAll = result => {
   
-  
+  console.log('get all pedidos')
   
    
-  sql.query("SELECT * FROM pedidos",
+  sql.query("SELECT c.nombre as clienteNombre,p.* FROM pedidos p INNER JOIN clientes c ON p.cliente_id=c.id",
    (err, res) => {
     if (err) {
       console.log("error: ", err);

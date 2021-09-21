@@ -17,7 +17,7 @@ export class Servicios {
    URL_PROVEEDORES=  '/api/proveedor';
    URL_CLIENTES=  '/api/cliente';
    URL_USUARIO=  '/api/usuario';
-   URL_PEDIDO=  '/pedido';
+   URL_PEDIDO=  '/api/pedido';
    URL_MATERIALES=  '/api/materialesProveedor';
    constructor(private http: HttpClient) { }
 
@@ -145,8 +145,12 @@ export class Servicios {
 public getAllPedidos() : Observable <any> {
   return this.http.get<any>(this.URL_PEDIDO);
  }
-
-
+ public crearPedido(json:any) : Observable <any> {
+  return this.http.post<any>(this.URL_PEDIDO, json ,this.getHeadders());
+ }
+ public cancelarPedido(id:any) : Observable <any> {
+  return this.http.delete<any>(this.URL_PEDIDO+'/'+id, this.getHeadders());
+ }
  //###################################################### SERVICIOS DE MATERIALES #############################################################################
 
  public saveMaterial(json: Object) : Observable <any> {

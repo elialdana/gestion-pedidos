@@ -1,0 +1,102 @@
+<div  mat-dialog-content class="text-center" >
+  <div class="col-sm-8">
+
+
+
+      <ng-template >MATERIALES UTILIZADOS</ng-template>
+      <form  >
+
+           <!-- PRODUCTO -->
+           <div class="form-group">
+            <label class="font-weight-bold"> MATERIAL </label>
+            <div class="col-sm-10">
+
+                <mat-select class="form-control"   [(ngModel)]="material" name="material" placeholder="Seleccione" required>
+                  <mat-option *ngFor="let e of listaMateriales" [value]="e.codigo">
+                    {{e.nombre}}
+                  </mat-option>
+
+                </mat-select>
+             </div>
+
+              <label class="font-weight-bold">CANTIDAD </label>
+              <div class="col-sm-10">
+               <input
+               type="text"
+               class="form-control"
+               [(ngModel)]="cantidad" name="cantidad"
+               placeholder=""
+
+             />
+            </div>
+            <label class="font-weight-bold">UNIDAD DE MEDIDA </label>
+              <div class="col-sm-10">
+               <input
+               type="text"
+               class="form-control"
+               [(ngModel)]="unidad_medida" name="unidad_medida"
+               placeholder=""
+
+             />
+            </div>
+          </div>
+
+          <div class="text-center ">
+
+            <button mat-button
+
+            class="btn btn-success"
+            (click)="agregar()"
+          >
+            Agregar
+          </button>
+
+          </div>
+
+    </form>
+<br>
+    <div class="row">
+      <div >
+
+
+        <table class="table table-bordered ">
+          <thead >
+            <tr>
+
+              <th>Material</th>
+              <th>Cantidad</th>
+              <th>Unidad de Medida</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let element of tableMatUtilizados| paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+
+
+          <td>{{element.nombre}}</td>
+          <td>{{element.cantidad}}</td>
+          <td>{{element.unidad_medida}}</td>
+
+          <td style="width: 10vw;">
+
+              <button
+
+              class="btn btn-sm btn-danger"
+              (click)="eliminar(element)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+
+
+          </td>
+
+          </tbody>
+        </table>
+        <pagination-controls
+          (pageChange)="pageActual = $event"
+        ></pagination-controls>
+      </div>
+      <button mat-button class="btn  btn-success" [mat-dialog-close]="data.lista" cdkFocusInitial>Guardar</button>
+    </div>
+
+</div>

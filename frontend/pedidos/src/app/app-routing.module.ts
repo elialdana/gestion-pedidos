@@ -13,14 +13,27 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'agregar-pedido', component: AgregarPedidoComponent },
+  { path: 'agregar-pedido', component: AgregarPedidoComponent ,canActivate: [AuthGuard]  },
   {path: 'login', component: LogInComponent},
-  {path: 'producto', component: ProductoComponent},//canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
-  {path: 'proveedor', component: ProveedorComponent},// canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
-  {path: 'cliente', component: ClienteComponent},//,canActivate: [AuthGuard] },
-  {path: 'usuario', component: UsuarioComponent},//,canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
-  {path: 'pedido', component: ListaPedidoComponent},//,canActivate: [AuthGuard]  },
-  {path: 'materiales', component: MaterialesComponent}//,canActivate:[RoleGuard], data: { expectedRole: 'admin' } },
+  {path: 'producto', component: ProductoComponent,canActivate:[RoleGuard], data: { expectedRole: 'ADMIN' } },
+  {path: 'proveedor', component: ProveedorComponent, canActivate:[RoleGuard], data: { expectedRole: 'ADMIN' } },
+  {path: 'cliente', component: ClienteComponent,canActivate: [AuthGuard] },
+  {path: 'usuario', component: UsuarioComponent,canActivate:[RoleGuard], data: { expectedRole: 'ADMIN' } },
+  {path: 'pedido', component: ListaPedidoComponent,canActivate: [AuthGuard]  },
+  {path: 'materiales', component: MaterialesComponent,canActivate:[RoleGuard], data: { expectedRole: 'ADMIN' } },
+  /**
+   * Rutas que no coincidan o sin ruta se redirige a la ruta raíz
+   */
+   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login',
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: 'login',
+  },
 ];
 
 @NgModule({

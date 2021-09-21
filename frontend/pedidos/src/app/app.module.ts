@@ -1,3 +1,5 @@
+import { TextUtil } from './components/comun/text-util';
+import { MaterialUtilizadoComponent } from './components/pedido/material-utilizado/material-utilizado.component';
 import { MaterialesComponent } from './components/materiales/materiales.component';
 import { AgregarPedidoComponent } from './components/pedido/agregar-pedido/agregar-pedido.component';
 import { ListaPedidoComponent } from './components/pedido/lista-pedido/lista-pedido.component';
@@ -30,6 +32,7 @@ import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 // Providers
 import { JwtHelperService, JWT_OPTIONS }  from '@auth0/angular-jwt'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +48,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FooterComponent,
     ListaPedidoComponent,
     AgregarPedidoComponent,
-    MaterialesComponent
+    MaterialesComponent,
+    MaterialUtilizadoComponent,
+
 
   ],
   imports: [
