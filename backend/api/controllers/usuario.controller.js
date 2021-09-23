@@ -80,12 +80,10 @@ exports.findLogin = (req, res) => {
 
   const {usuario,nombre,password,perfil} =data;
 
-   console.log('ESTO RETORNA',data);
+   
    resp.respuesta=false;
    if(data!=null){
-    
-    console.log('pass',req.body.password)
-    console.log('password===req.body.password ',password===req.body.password);
+
    if(usuario===req.body.usuario && password===req.body.password){
       console.log('login', 'OK');
       const token = jwt.sign({usuario,nombre,perfil},'umg',{expiresIn:'1h'})
@@ -94,6 +92,10 @@ exports.findLogin = (req, res) => {
       resp.respuesta=true;
       resp.token =token;
         res.status(200).send(resp);
+    }else{
+      resp.respuesta=false;
+      res.status(200).send(resp);
+
     }
   }
    

@@ -28,6 +28,7 @@
             <th>comentario</th>
             <th>Usuario Asignado</th>
             <th>Estado</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +40,24 @@
             <td>{{element.usuario_asignado}}</td>
             <td>{{estado(element.estado)}}</td>
 
+            <td style="width: 10vw; " class="">
 
+              <button
+
+              class="btn btn-sm btn-danger"
+              (click)="cancelar(element)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+
+            <button
+
+            class="btn  btn-success"
+            (click)="pago(element)"
+          >
+            Pagos
+          </button>
+          </td>
 
         </tbody>
       </table>

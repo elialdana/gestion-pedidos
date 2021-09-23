@@ -1,22 +1,8 @@
 <div class="container app">
-  <div class="row">
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4">
-      <div class="alert alert-success alert-dismissable" *ngIf="msg">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ msg }}
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="alert alert-danger alert-dismissable" *ngIf="err">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ err }}
-      </div>
-    </div>
-  </div>
+
   <div class="row">
     <div class="col-sm-4">
-      <img
+      <img class="img-responsive"
         width="300"
         src="../../../assets/logo.PNG"
       />
@@ -28,7 +14,7 @@
 
         <form >
           <div class="form-group">
-            <label class="font-weight-bold"l> DPI </label>
+            <label class="font-weight-bold"> DPI </label>
             <div class="col-sm-10">
               <input
               [(ngModel)]="dpi" name="dpi"
@@ -47,9 +33,10 @@
                 type="text"
                 class="form-control"
 
-                placeholder="Ingrese nombre"
+                placeholder="Ingrese nombre" required
               />
             </div>
+
           </div>
           <div class="form-group">
             <label class="font-weight-bold"l> USUARIO </label>
@@ -67,14 +54,14 @@
 
 
           <div class="form-group">
-            <label class="font-weight-bold"l> DIRECCION </label>
+            <label class="font-weight-bold"l> DIRECCIÓN </label>
             <div class="col-sm-10">
               <input
               [(ngModel)]="direccion" name="direccion"
                 type="text"
                 class="form-control"
 
-                placeholder="Ingrese direccion"
+                placeholder="Ingrese dirección"
               />
             </div>
           </div>
@@ -84,7 +71,7 @@
               <select   [(ngModel)]="perfil" name="perfil" class="custom-select "  required>
 
                 <option value="ADMIN">Administrador</option>
-                <option value="TECNICO" >Tecnico</option>
+                <option value="TECNICO" >Técnico</option>
 
               </select>
             </div>

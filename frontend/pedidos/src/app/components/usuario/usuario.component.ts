@@ -17,8 +17,10 @@ export class UsuarioComponent implements OnInit {
   nombre: string = '';
   direccion: string = '';
   telefono: string = '';
+  email: string = '';
   perfil: string = 'TECNICO';
   foto: string = '';
+
 
   nombreBoton: string = 'Guardar';
   //VARIABLES Y OBJETOS
@@ -47,6 +49,9 @@ export class UsuarioComponent implements OnInit {
   }
 
   saveOrUpdate() {
+    if(!this.validaciones()){
+        return;
+    }
     if (this.nombreBoton ==  'Guardar') {
       this.agregar();
     } else {
@@ -55,7 +60,54 @@ export class UsuarioComponent implements OnInit {
 
   }
 
+  alerta(mensaje:string,icon:string){
 
+    let dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: {
+        title: '',
+        text: mensaje,
+        icon: icon,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+      },
+    });
+
+  }
+validaciones(){
+  if(!this.dpi && this.dpi.trim().length==0 &&
+  !this.nombre && this.nombre.trim().length==0&&
+  !this.usuario && this.usuario.trim().length==0&&
+  !this.direccion && this.direccion.trim().length==0
+  ){
+    this.alerta('Por favor ingrese los datos solicitados','error');
+    return false;
+  }
+    if(!this.dpi && this.dpi.trim().length==0){
+
+        this.alerta('Por favor ingrese DPI','error');
+      return false;
+    }
+
+    if(!this.nombre && this.nombre.trim().length==0){
+
+      this.alerta('Por favor ingrese nombre','error');
+    return false;
+    }
+
+    if(!this.usuario && this.usuario.trim().length==0){
+
+      this.alerta('Por favor ingrese usuario','error');
+    return false;
+    }
+    if(!this.direccion && this.direccion.trim().length==0){
+
+      this.alerta('Por favor ingrese dirección','error');
+    return false;
+    }
+    return true;
+}
   agregar() {
 
     let dialogRef = this.dialog.open(AlertDialogComponent, {
@@ -201,7 +253,7 @@ export class UsuarioComponent implements OnInit {
     this.nombre=user.nombre;
     this.direccion=user.direccion;
     this.telefono=user.telefono;
-    //this.email=user.email;
+    this.email=user.email;
     this.perfil=user.perfil;
     this.foto=user.foto;
 

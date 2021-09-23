@@ -18,6 +18,8 @@ export class AppComponent {
   }
 
   autenticado(){
-    return this.authService.isAuth();
+    let aut = this.authService.isAuth();
+      console.log('autenticado ',aut)
+    return aut;
   }
 }

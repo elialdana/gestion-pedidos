@@ -1,17 +1,23 @@
 <!-- Toolbar -->
 
-<div *ngIf="autenticado()" >
-  <app-header></app-header>
-  <app-sidebar ></app-sidebar>
-</div>
-
-<div class="content-wrapper">
+<div *ngIf="!autenticado()" class="img-responsive"  style="background-image: url('../../../assets/logo_login.jpg');padding:129px 100px 335px 100px; "  >
 
   <router-outlet></router-outlet>
 
+</div>
+<div *ngIf="autenticado()">
+
+
+
+  <app-header></app-header>
+  <app-sidebar ></app-sidebar>
+
+<div   class="content-wrapper">
+
+  <router-outlet></router-outlet>
 
 </div>
-<div   *ngIf="autenticado()" >
+
   <app-footer></app-footer>
-</div>
 
+</div>

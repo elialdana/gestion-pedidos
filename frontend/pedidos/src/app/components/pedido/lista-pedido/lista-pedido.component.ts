@@ -62,7 +62,24 @@ this.router.navigate(['agregar-pedido']);
     if('P'==estado){
       return 'Procesado';
     }
-
+    if('I'==estado){
+      return 'Ingresado';
+    }
+    if('C'==estado){
+      return 'Cancelado';
+    }
+    if('T'==estado){
+      return 'Finalizado';
+    }
     return estado;
+  }
+
+
+  cancelar(e:any){
+
+  }
+
+  pago(e:any){
+
   }
 }

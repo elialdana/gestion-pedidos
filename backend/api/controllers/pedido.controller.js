@@ -8,7 +8,7 @@ exports.procesarPedido = (req, res) => {
   const pedido = new Pedido({
     cliente_id: req.body.encabezado.cliente_id,
     comentario: req.body.encabezado.comentario,
-    estado: 'P',
+    estado: 'I',
     direccion: req.body.encabezado.direccion,
     fecha_entrega: req.body.encabezado.fecha_entrega,
     usuario_registro:  req.body.encabezado.usuario_asignado,

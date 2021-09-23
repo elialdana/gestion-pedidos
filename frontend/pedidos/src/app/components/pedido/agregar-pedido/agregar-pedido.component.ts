@@ -170,7 +170,7 @@ procesarPedido(){
     encabezado:this.pedidoEncabezado,
     detalle: this.tableDetallePedido
   }
-  //console.log(pedido)
+
   this.servicios.crearPedido(pedido).subscribe((res: any) => {
     console.log(res)
 
