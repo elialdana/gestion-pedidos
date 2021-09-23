@@ -1,0 +1,81 @@
+<div  mat-dialog-content class="text-center" >
+  <div class="col-sm-8">
+
+
+
+      <ng-template >PAGOS REALIZADOS</ng-template>
+      <form  >
+
+           <!-- PRODUCTO -->
+           <div class="form-group">
+
+
+              <label class="font-weight-bold">ABONO </label>
+              <div class="col-sm-10">
+               <input
+               type="text"
+               class="form-control"
+               [(ngModel)]="cantidad" name="cantidad"
+               placeholder=""
+
+             />
+            </div>
+            <label class="font-weight-bold">DESCRIPCIÓN</label>
+              <div class="col-sm-10">
+               <input
+               type="text"
+               class="form-control"
+               [(ngModel)]="unidad_medida" name="unidad_medida"
+               placeholder=""
+
+             />
+            </div>
+          </div>
+
+          <div class="text-center ">
+
+            <button mat-button
+
+            class="btn btn-success"
+            (click)="agregar()"
+          >
+            Agregar
+          </button>
+
+          </div>
+
+    </form>
+<br>
+    <div class="row">
+      <div >
+
+
+        <table class="table table-bordered ">
+          <thead >
+            <tr>
+
+              <th>Fecha</th>
+              <th>Abono</th>
+              <th>Descripción</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let element of tableMatUtilizados| paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
+
+
+          <td>{{element.fecha}}</td>
+          <td>{{element.abono}}</td>
+          <td>{{element.descripcion}}</td>
+
+
+          </tbody>
+        </table>
+        <pagination-controls
+          (pageChange)="pageActual = $event"
+        ></pagination-controls>
+      </div>
+      <button mat-button class="btn  btn-success" [mat-dialog-close]="data.id_padre" cdkFocusInitial>Cerrar</button>
+    </div>
+
+</div>
