@@ -82,4 +82,7 @@ Para la base de datos por comodidad utilizaremos el stack Xampp, pero utilizarem
            <br>Contraseña: admin
 
 
- 
+ ![image](https://user-images.githubusercontent.com/38637350/134252497-9c92626f-62fc-4c00-8964-797531d6c2e6.png)
+ ![image](https://user-images.githubusercontent.com/38637350/134252531-98709473-86b1-48ce-93e4-ce3b6d223889.png)
+
+
