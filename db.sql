@@ -350,3 +350,27 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+-- Disparadores `materiales_utilizados`
+--
+DELIMITER $$
+CREATE TRIGGER `actualiza_stock` BEFORE INSERT ON `materiales_utilizados` FOR EACH ROW update materiales m set m.stock=m.stock- new.cantidad where m.id=new.material_id
+$$
+DELIMITER ;
+
+--
+-- Disparadores `pagos`
+--
+DELIMITER $$
+CREATE TRIGGER `actualiza_total_pagado` BEFORE INSERT ON `pagos` FOR EACH ROW update pedidos p set p.total_pagado= p.total_pagado + NEW.abono  where p.id=new.pedido_id
+$$
+DELIMITER ;
+
+--
+-- Disparadores `pedidos`
+--
+DELIMITER $$
+CREATE TRIGGER `actualiza_total_pendiente` BEFORE UPDATE ON `pedidos` FOR EACH ROW update pedidos p set p.total_pendiente=p.total- p.total_pagado  where p.id=new.id
+$$
+DELIMITER ;
