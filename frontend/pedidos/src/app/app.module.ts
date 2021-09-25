@@ -1,3 +1,4 @@
+import { PagoComponent } from './components/pedido/pago/pago.component';
 import { TextUtil } from './components/comun/text-util';
 import { MaterialUtilizadoComponent } from './components/pedido/material-utilizado/material-utilizado.component';
 import { MaterialesComponent } from './components/materiales/materiales.component';
@@ -50,7 +51,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     AgregarPedidoComponent,
     MaterialesComponent,
     MaterialUtilizadoComponent,
-
+    PagoComponent
 
   ],
   imports: [

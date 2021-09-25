@@ -1,16 +1,18 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { AlertDialogComponent } from './../../alert-dialog/alert-dialog.component';
 import { MaterialUtilizadoComponent } from './../material-utilizado/material-utilizado.component';
 import { MatDialog } from '@angular/material/dialog';
-import { element } from 'protractor';
+
 import { Servicios } from './../../../servicios/servicios.service';
 import { Component, OnInit } from '@angular/core';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 @Component({
   selector: 'app-agregar-pedido',
   templateUrl: './agregar-pedido.component.html',
-  styleUrls: ['./agregar-pedido.component.css']
+  styleUrls: ['./agregar-pedido.component.css'],
+
 })
 export class AgregarPedidoComponent implements OnInit {
   pageActual: number = 1;
@@ -18,7 +20,8 @@ export class AgregarPedidoComponent implements OnInit {
   listaUsuarios:any[]=[];
   tableMateriales: any[] = [];
   tableDetallePedido: any[] = [];
-
+  mostrarSigStep1:boolean= false;
+  mostrarSigStep2:boolean= false;
   //pedido encabezado
   idPedido:number=0;
   usuarioAsignado:string='';
@@ -42,7 +45,7 @@ export class AgregarPedidoComponent implements OnInit {
 
   //datos
    pedidoEncabezado ={};
-  constructor(private servicios: Servicios,public dialog: MatDialog, private router: Router){
+  constructor(private servicios: Servicios,public dialog: MatDialog, private router: Router,   private spinner: NgxSpinnerService){
 
   }
   ngOnInit(): void {
@@ -99,8 +102,46 @@ export class AgregarPedidoComponent implements OnInit {
     });
   }
 
+  mostrarSiguiente1( cliente:string,usuarioAsignado:string,comentario:string ,direccion:string){
+    console.log("evento ",cliente &&
+    usuarioAsignado &&
+
+    direccion )
+    if(cliente &&
+    usuarioAsignado &&
+
+    direccion  ){
+
+      this.mostrarSigStep1=true;
+  console.log(" this.mostrarSigStep1 "+ this.mostrarSigStep1)
+    }
+
+  }
+  cancelar(){
+    this.router.navigate(['pedido']);
+  }
   guardarDatosIdentificacion(){
 
+    if(!this.cliente &&
+    !this.usuarioAsignado&&
+
+    !this.direccion ){
+      this.alerta('Por favor ingrese los datos solicitados','error');
+      return ;
+    }
+
+    if(!this.cliente){
+      this.alerta('Por favor ingrese un cliente','error');
+      return ;
+    }
+    if(!this.usuarioAsignado){
+      this.alerta('Por favor asigne un usuario','error');
+      return ;
+    }
+    if(!this.direccion ){
+      this.alerta('Por favor ingrese una dirección','error');
+      return ;
+    }
     this.pedidoEncabezado ={
       cliente_id:this.cliente,
       comentario:this.comentario,
@@ -112,9 +153,29 @@ export class AgregarPedidoComponent implements OnInit {
 
   }
 
+  alerta(mensaje:string,icon:string){
 
+    let dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: {
+        title: '',
+        text: mensaje,
+        icon: icon,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+      },
+    });
+
+  }
   guardarDetalle(){
-console.log('guardando detalle')
+
+    if(!this.producto){
+      this.alerta('Por favor seleccione un producto','error');
+      return;
+    }
+
+
 this.llenarMonto(this.producto);
 this.monto=this.monto * this.cantidad;
 this.monto=(this.monto+this.costoInstalacion+this.costoAdicional)-this.descuento;
@@ -131,6 +192,7 @@ this.monto=(this.monto+this.costoInstalacion+this.costoAdicional)-this.descuento
     });
 
     this.limpiar();
+
   }
 
   llenarMonto(id:string){
@@ -145,14 +207,14 @@ this.monto=(this.monto+this.costoInstalacion+this.costoAdicional)-this.descuento
   }
 
 agregarMaterial(element:any){
-
+  this.eliminarDetalle(element)
   const dialogRef = this.dialog.open(MaterialUtilizadoComponent, {
 
-    data: {}
+    data: {lista:element.listaMateriales}
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    this.eliminarDetalle(element)
+
     element.listaMateriales=result
     console.log(element.listaMateriales);
     this.tableDetallePedido.push(element)
@@ -166,6 +228,11 @@ eliminarDetalle(element:any){
 
 
 procesarPedido(){
+  if(this.tableDetallePedido.length==0){
+    this.alerta('Necesita agregar un producto para procesar el pedido','error');
+    return;
+  }
+this.spinner.show();
   let pedido={
     encabezado:this.pedidoEncabezado,
     detalle: this.tableDetallePedido
@@ -185,7 +252,7 @@ procesarPedido(){
         cancelButtonText: '',
       },
     });
-
+    this.spinner.hide();
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.value) {

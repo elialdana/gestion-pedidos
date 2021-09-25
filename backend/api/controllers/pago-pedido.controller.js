@@ -2,7 +2,7 @@ const PagoPedido = require("../models/pago-pedido.model");
 
 
 exports.create = (req, res) => {
-  console.log("reques",req.body)
+  console.log("reques ",req.body)
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -40,7 +40,16 @@ exports.findAll = (req, res) => {
   });
 };
 
-
+exports.findAllByPadre = (req, res) => {
+  PagoPedido.getAllByPadre(req.params.id,(err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving ."
+      });
+    else res.send(data);
+  });
+};
 exports.findOne = (req, res) => {
   PagoPedido.findById(req.params.id, (err, data) => {
     if (err) {

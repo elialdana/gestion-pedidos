@@ -43,7 +43,7 @@
             <td style="width: 10vw; " class="">
 
               <button
-
+              *ngIf="element.estado!=='C'"
               class="btn btn-sm btn-danger"
               (click)="cancelar(element)"
             >

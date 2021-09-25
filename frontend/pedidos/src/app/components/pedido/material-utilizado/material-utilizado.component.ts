@@ -16,7 +16,10 @@ export class MaterialUtilizadoComponent implements OnInit {
   cantidad:number=0;
   unidad_medida:string='';
   tableMatUtilizados:any []=[];
-  constructor(private servicios: Servicios,@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private servicios: Servicios,@Inject(MAT_DIALOG_DATA) public data: any) {
+    this.tableMatUtilizados=data.lista?data.lista:[];
+
+   }
 
   ngOnInit() {
     this.comboMateriales();

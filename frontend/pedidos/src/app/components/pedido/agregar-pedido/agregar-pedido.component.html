@@ -36,18 +36,17 @@
                     </div>
 
 
+                    <br>
+                    <div class="form-group">
+                     <label class="font-weight-bold"> USUARIO ASIGNADO </label>
+                     <div class="col-sm-10">
+                      <mat-select class="form-control"   [(ngModel)]="usuarioAsignado" name="usuarioAsignado" placeholder="Seleccione" required>
+                        <mat-option *ngFor="let e of listaUsuarios" [value]="e.codigo">
+                          {{e.nombre}}
+                        </mat-option>
 
-                  <br>
-                  <div class="form-group">
-                   <label class="font-weight-bold"> USUARIO ASIGNADO </label>
-                   <div class="col-sm-10">
-                    <mat-select class="form-control"   [(ngModel)]="usuarioAsignado" name="usuarioAsignado" placeholder="Seleccione" required>
-                      <mat-option *ngFor="let e of listaUsuarios" [value]="e.codigo">
-                        {{e.nombre}}
-                      </mat-option>
-
-                    </mat-select>
-                 </div>
+                      </mat-select>
+                   </div>
 
                    <!-- direccion -->
                    <br>
@@ -56,12 +55,14 @@
                     <div class="col-sm-10">
                       <input
                         type="text"
+                         (keydown)="mostrarSiguiente1(cliente,usuarioAsignado,comentario ,direccion)"
                         class="form-control"
                         [(ngModel)]="direccion" name="direccion"
                         placeholder=""
                       />
                     </div>
                   </div>
+
 
                    <!-- DESCRIPCION -->
                    <br>
@@ -71,8 +72,10 @@
                       <input
                         type="text"
                         class="form-control"
+
                         [(ngModel)]="comentario" name="comentario"
                         placeholder=""
+
                       />
                     </div>
                   </div>
@@ -80,11 +83,19 @@
 
                 </div>
                     <br />
-                    <div class="text-center ">
 
+                      <div class="text-left">
+                        <button mat-button
+                        (click)="cancelar()"
+                        class="btn btn-danger"
+
+                      >
+                        Cancelar
+                      </button>
                       <button mat-button matStepperNext
 
                       class="btn btn-success"
+                      *ngIf="mostrarSigStep1"
                       (click)="guardarDatosIdentificacion()"
                     >
                       Siguiente
@@ -189,7 +200,7 @@
 
                       <div class="text-center ">
                         <button mat-button
-                        matStepperPrevious
+                        (click)="stepper.reset()"
                         class="btn btn-danger"
 
                       >
@@ -203,7 +214,7 @@
                         Agregar Detalle
                       </button>
                       <button mat-button
-
+                      [disabled]="tableDetallePedido.length==0"
                       class="btn btn-primary"
                       (click)="procesarPedido()"
                     >

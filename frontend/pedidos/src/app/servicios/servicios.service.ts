@@ -19,6 +19,7 @@ export class Servicios {
    URL_USUARIO=  '/api/usuario';
    URL_PEDIDO=  '/api/pedido';
    URL_MATERIALES=  '/api/materialesProveedor';
+   URL_PAGO=  '/api/pago';
    constructor(private http: HttpClient) { }
 
    getHeadders(){
@@ -32,28 +33,6 @@ export class Servicios {
     };
     return httpOptions;
    }
-
-   public handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-        // A client-side or network error occurred. Handle it accordingly.
-        if (error.status === 200) {
-            // console.log('carga-archivo: sin error HttpErrorResponse');
-        } else {
-            // console.error('carga-archivo: Ocurrio un error:', error.error.message);
-        }
-
-    } else {
-        if (error.status === 200) {
-            // console.log('carga-archivo: sin error HttpErrorResponse');
-        } else {
-            // console.error('carga-archivo::Código de respuesta ' + error.status +', body was: ' + error.error);
-        }
-    }
-    return throwError(
-        'Algo malo paso, por favor intente mas tarde.');
-};
-
-
 
 //###################################################### SERVICIOS DE PRODUCTOS #############################################################################
 
@@ -172,6 +151,22 @@ public updateMaterial(json: Object, id:String) : Observable <any> {
 
 
   return this.http.delete<any>(this.URL_MATERIALES+'/'+id, this.getHeadders());
+ }
+
+
+ //###################################################### SERVICIOS DE PAGOS #############################################################################
+
+
+public savePago(json: Object) : Observable <any> {
+
+  console.log(json)
+  console.log(this.URL_PAGO)
+  return this.http.post<any>(this.URL_PAGO, json,this.getHeadders());
+ }
+
+
+ public getAllPagos(idPadre:string) : Observable <any> {
+  return this.http.get<any>(this.URL_PAGO+'/pedido/'+idPadre);
  }
 
 }

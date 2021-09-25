@@ -3,17 +3,16 @@ module.exports = app => {
 
   
   // Create a new pago
-  app.post("/pago", pago.create);
+  app.post("/api/pago", pago.create);
   // Retrieve all pago
-  app.get("/pago", pago.findAll);
+  app.get("/api/pago", pago.findAll);
+  app.get("/api/pago/pedido/:id", pago.findAllByPadre);
   // Retrieve a single pago with customerId
-  app.get("/pago/:id", pago.findOne);
+  app.get("/api/pago/:id", pago.findOne);
 
   // Update a pago with customerId
-  app.put("/pago/:id", pago.update);
+  app.put("/api/pago/:id", pago.update);
 
-  // Delete a pago with customerId
-  app.delete("/pago/:id", pago.delete);
 
 
 };

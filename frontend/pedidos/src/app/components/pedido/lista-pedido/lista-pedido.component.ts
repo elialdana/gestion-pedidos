@@ -1,3 +1,4 @@
+import { PagoComponent } from './../pago/pago.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Servicios } from './../../../servicios/servicios.service';
@@ -53,33 +54,79 @@ export class ListaPedidoComponent implements OnInit {
     });
   }
 
-  agregar(){
-//agregar-pedido
-this.router.navigate(['agregar-pedido']);
+  agregar() {
+    //agregar-pedido
+    this.router.navigate(['agregar-pedido']);
   }
 
-  public  estado(estado:string){
-    if('P'==estado){
+  public estado(estado: string) {
+    if ('P' == estado) {
       return 'Procesado';
     }
-    if('I'==estado){
+    if ('I' == estado) {
       return 'Ingresado';
     }
-    if('C'==estado){
+    if ('C' == estado) {
       return 'Cancelado';
     }
-    if('T'==estado){
+    if ('T' == estado) {
       return 'Finalizado';
     }
     return estado;
   }
 
 
-  cancelar(e:any){
+  cancelar(e: any) {
+    let dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: {
+        title: '',
+        text: `¿Está seguro de cancelar el pedido?`,
+        icon: 'success',
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+      },
+    });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.value) {
+          this.servicios.cancelarPedido(e.id).subscribe((res: any) => {
+
+
+            this.getAll();
+            this.dialog.open(AlertDialogComponent, {
+              data: {
+                title: '',
+                text: `Pedido cancelado con exito`,
+                icon: 'question',
+                showCancelButton: false,
+                showConfirmButton: true,
+                confirmButtonText: 'Cerrar',
+                cancelButtonText: 'Cancelar',
+              },
+            });
+
+          });
+        }
+      }
+    });
   }
 
-  pago(e:any){
+  pago(e: any) {
 
+
+    const dialogRef = this.dialog.open(PagoComponent, {
+
+      data: { id_padre: e.id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
+
+
+
 }

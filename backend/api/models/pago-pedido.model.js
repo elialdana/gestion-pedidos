@@ -16,7 +16,7 @@ PagoPedido.create = (newPagoPedido, result) => {
 
 
   console.log('PagoPedido que llega ',newPagoPedido);
-  sql.query("INSERT INTO PAGOS_PEDIDO SET ?", newPagoPedido, (err, res) => {
+  sql.query("INSERT INTO pagos SET ?", newPagoPedido, (err, res) => {
    
     if (err) {
       console.log("error: ", err);
@@ -30,7 +30,7 @@ PagoPedido.create = (newPagoPedido, result) => {
 };
 
 PagoPedido.findById = (pagoPedidoId, result) => {
-  sql.query(`SELECT * FROM PAGOS_PEDIDO WHERE id = ${pagoPedidoId}`, (err, res) => {
+  sql.query(`SELECT * FROM pagos WHERE id = ${pagoPedidoId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -53,7 +53,7 @@ PagoPedido.getAll = result => {
   
   console.log(" ingresando a getall");
    
-  sql.query("SELECT * FROM PAGOS_PEDIDO",
+  sql.query("SELECT * FROM pagos",
    (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -61,7 +61,26 @@ PagoPedido.getAll = result => {
       return;
     }
 
-    console.log("productos: ", res);
+    console.log("pagos: ", res);
+    result(null, res);
+    return;
+  });
+};
+
+PagoPedido.getAllByPadre = (idPadre,result) => {
+  
+  
+  
+   
+  sql.query("SELECT * FROM pagos where pedido_id=?",idPadre,
+   (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("pagos: ", res);
     result(null, res);
     return;
   });
@@ -69,7 +88,7 @@ PagoPedido.getAll = result => {
 
 PagoPedido.updateById = (id, pago, result) => {
   sql.query(
-    "UPDATE PAGOS_PEDIDO SET NOMBRE = ?, DESCRIPCION = ?, ESTADO = ? WHERE id = ?",
+    "UPDATE pagos SET NOMBRE = ?, DESCRIPCION = ?, ESTADO = ? WHERE id = ?",
     [pago.nombre, pago.descripcion,pago.estado,id],
     (err, res) => {
       if (err) {
