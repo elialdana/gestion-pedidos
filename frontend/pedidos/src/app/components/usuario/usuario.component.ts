@@ -21,7 +21,7 @@ export class UsuarioComponent implements OnInit {
   perfil: string = 'TECNICO';
   foto: string = '';
 
-
+  cambioPass: boolean = false;
   nombreBoton: string = 'Guardar';
   //VARIABLES Y OBJETOS
   nameAPP = 'USUARIOS';
@@ -37,8 +37,7 @@ export class UsuarioComponent implements OnInit {
 
   }
   pageActual: number = 1;
-  msg = '';
-  err = '';
+
   hideUpdate = true;
 
 
@@ -190,11 +189,7 @@ validaciones(){
     this.spinner.hide();
   }
 
-  closeAlert(): void {
-    this.msg = '';
-    this.err = '';
 
-  }
 
   modificar() {
 
@@ -289,7 +284,45 @@ validaciones(){
 
   }
 
+ seleccionaCambioPass(i: any): void {
+      this.usuario= i.usuario;
+    console.log(i)
+      this.cambioPass=true;
+ }
 
+ accionCambioPass(){
+   console.log('password ', this.password)
+   if(!this.password){
+    this.dialog.open(AlertDialogComponent, {
+      data: {
+        title: '',
+        text: 'Por favor ingrese la nueva contraseña',
+        icon: 'error',
+        showCancelButton: true,
+        showConfirmButton: false,
+
+        cancelButtonText: 'Cerrar',
+      },
+    });
+    return;
+   }
+ let  request={
+  usuario:this.usuario,
+  password: crypto.SHA512(this.password).toString()
+ }
+
+ console.log(this.usuario)
+  this.servicios.updateUsuario(request, this.usuario).subscribe((res: any) => {
+
+
+    this.cambioPass=false;
+    this.limpiar();
+    this.dialogoInformacion(`Cambio de contraseña exitoso`);
+    this.spinner.hide();
+
+  });
+
+ }
 
   dialogoInformacion(text:string){
     this.dialog.open(AlertDialogComponent, {
@@ -305,4 +338,17 @@ validaciones(){
     });
 
   }
+
+
+  textEstado(estado:string){
+    if('A'== estado){
+
+      return 'Activo';
+    }
+    else{
+
+      return 'Inactivo';
+    }
+  }
+
 }

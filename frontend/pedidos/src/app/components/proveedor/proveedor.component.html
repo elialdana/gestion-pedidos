@@ -1,19 +1,5 @@
 <div class="container app">
-  <div class="row">
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4">
-      <div class="alert alert-success alert-dismissable" *ngIf="msg">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ msg }}
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="alert alert-danger alert-dismissable" *ngIf="err">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ err }}
-      </div>
-    </div>
-  </div>
+
   <div class="row">
     <div class="col-sm-4">
       <img
@@ -24,9 +10,9 @@
     <div class="col-sm-8">
       <form class="form-horizontal">
 
+        <h4 class="text-center" >Mantenimiento Proveedores</h4>
 
 
-        <form >
 
           <!-- NOMBRE -->
           <div class="form-group">
@@ -101,14 +87,14 @@
 
               <button
 
-                class="btn btn-lg btn-block btn-success"
+                class="btn btn-success"
                 (click)="saveOrUpdate()"
               >
                 {{nombreBoton}}
               </button>
               <button
 
-                class="btn btn-lg btn-block btn-secondary"
+                class="btn btn-secondary"
                 (click)="limpiar()"
               >
                 Limpiar
@@ -116,7 +102,7 @@
 
           </div>
         </form>
-      </form>
+
     </div>
   </div>
 

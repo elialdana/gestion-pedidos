@@ -22,6 +22,7 @@ export class PagoComponent implements OnInit {
   }
 
   getAll(){
+    this.tablePagos=[];
     this.servicios.getAllPagos(this.data.id_padre).subscribe((res: any) => {
       for (let element of res) {
         this.tablePagos.push(element);

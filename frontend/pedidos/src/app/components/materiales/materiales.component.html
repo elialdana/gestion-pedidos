@@ -1,19 +1,6 @@
 <div class="container app">
   <div class="row">
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4">
-      <div class="alert alert-success alert-dismissable" *ngIf="msg">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ msg }}
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="alert alert-danger alert-dismissable" *ngIf="err">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ err }}
-      </div>
-    </div>
-  </div>
+
   <div class="row">
     <div class="col-sm-4">
       <img
@@ -24,9 +11,9 @@
     <div class="col-sm-8">
       <form class="form-horizontal">
 
+        <h4 class="text-center" >Mantenimiento Materiales</h4>
 
 
-        <form >
           <!-- CODIGO -->
           <div class="form-group">
             <label class="font-weight-bold"> CODIGO </label>
@@ -174,7 +161,7 @@
 
           </div>
         </form>
-      </form>
+
     </div>
   </div>
 
@@ -186,7 +173,7 @@
           <tr>
             <th>Código</th>
             <th>Nombre</th>
-            <th>Descripcion</th>
+            <th>Stock</th>
             <th>Estado</th>
             <th>Acciones</th>
           </tr>
@@ -196,21 +183,22 @@
 
             <td>{{element.codigo}}</td>
             <td>{{element.nombre}}</td>
-            <td>{{element.descripcion}}</td>
+            <td>{{element.stock}}</td>
             <td>{{element.estado}}</td>
 
             <td style="width: 10vw;">
 
                 <button
 
-                class="btn btn-sm btn-danger"
+                class="btn  btn-danger"
+                matTooltip="Eliminar Material"
                 (click)="eliminar(element)"
               >
                 <mat-icon>delete</mat-icon>
               </button>
               <button
-
-              class="btn btn-sm btn-success"
+              matTooltip="Editar Material"
+              class="btn btn-success"
               (click)="seleccionaEditar(element)"
             >
               <mat-icon>edit</mat-icon>

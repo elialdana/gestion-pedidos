@@ -1,3 +1,5 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ModificarPedidoComponent } from './components/pedido/modificar-pedido/modificar-pedido.component';
 import { PagoComponent } from './components/pedido/pago/pago.component';
 import { TextUtil } from './components/comun/text-util';
 import { MaterialUtilizadoComponent } from './components/pedido/material-utilizado/material-utilizado.component';
@@ -51,7 +53,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     AgregarPedidoComponent,
     MaterialesComponent,
     MaterialUtilizadoComponent,
-    PagoComponent
+    PagoComponent,
+    ModificarPedidoComponent
 
   ],
   imports: [
@@ -61,7 +64,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+
     ],
   providers: [
 

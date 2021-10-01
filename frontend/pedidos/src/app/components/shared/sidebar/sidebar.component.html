@@ -30,37 +30,41 @@
                with font-awesome or any other icon font library -->
                <li class="nav-item" *ngIf="validaRol('ADMIN')">
                 <a routerLink='/usuario' class="nav-link">
-                  <i class="far fa-user nav-icon"></i>
+                  <mat-icon class="nav-icon">assignment_ind</mat-icon>
                   <p class="ml-2">Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a  routerLink="/producto" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+
+                  <mat-icon class="nav-icon"> assignment_turned_in</mat-icon>
                   <p>Productos</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a  routerLink="/cliente"class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+
+                  <mat-icon  class="nav-icon">face</mat-icon>
                   <p>Clientes</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a  routerLink="/proveedor" class="nav-link" *ngIf="validaRol('ADMIN')">
-                  <i class="far fa-circle nav-icon"></i>
+                  <mat-icon  class="nav-icon"> contact_phone</mat-icon>
                   <p>Proveedores</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a routerLink="materiales" class="nav-link" *ngIf="validaRol('ADMIN')">
-                  <i class="far fa-circle nav-icon"></i>
+
+                  <mat-icon class="nav-icon">build</mat-icon>
                   <p>Materiales</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a routerLink="/pedido" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+
+                  <mat-icon  class="nav-icon">shopping_cart</mat-icon>
                   <p>Pedidos</p>
                 </a>
               </li>

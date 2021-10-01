@@ -1,14 +1,25 @@
 const Cliente = require("../models/cliente.model");
+const UsuarioCtr = require("../controllers/usuario.controller");
 
 exports.create = (req, res) => {
-  console.log("reques",req.body)
+
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
   }
+  if(!req.headers.authorization) return res.status(401).json('No autorizado');
+  const jwt = require('jsonwebtoken');
+  const token = req.headers.authorization.substr(7);
+  console.log(token)
+  if(token==''){
+    res.status(401).json('Token vacio');
+   
+  }
 
-
+  const content = jwt.verify(token, 'umg')
+  
+  console.log(content)
   const cliente = new Cliente({   
   
     dpi : req.body.dpi,
@@ -22,6 +33,7 @@ exports.create = (req, res) => {
 
 
   Cliente.create(cliente, (err, data) => {
+    
     if (err)
       res.status(500).send({
         message:

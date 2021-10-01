@@ -7,12 +7,57 @@
         src="../../../assets/logo.PNG"
       />
     </div>
-    <div class="col-sm-8">
+
+    <div class="col-sm-8" *ngIf="cambioPass" >
+
       <form class="form-horizontal">
+        <h4 class="text-center" >Cambio de contraseña</h4>
+
+        <div class="form-group">
+          <label class="font-weight-bold"> Usuario </label>
+          <div class="col-sm-10">
+            <input
+            [(ngModel)]="usuario" name="usuario"
+              type="text"
+              class="form-control"
+
+            disabled
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold"> Contraseña </label>
+          <div class="col-sm-10">
+            <input
+            [(ngModel)]="password" name="password"
+              type="password"
+              class="form-control"
+
+              placeholder="Ingrese Contraseña" required
+            />
+          </div>
+          <br />
+          <div class="form-group">
+          <button
+
+          class="btn btn-success"
+          matTooltip="Guardar Cambios"
+          (click)="accionCambioPass()"
+        >
+          {{nombreBoton}}
+        </button>
+      </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-sm-8" *ngIf="!cambioPass" >
+
+      <form class="form-horizontal">
+        <h4 class="text-center" >Mantenimiento de Usuarios</h4>
 
 
 
-        <form >
           <div class="form-group">
             <label class="font-weight-bold"> DPI </label>
             <div class="col-sm-10">
@@ -98,7 +143,7 @@
               </button>
 
           </div>
-        </form>
+
       </form>
     </div>
   </div>
@@ -111,7 +156,7 @@
           <tr>
             <th>Usuario</th>
             <th>Nombre</th>
-
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -119,7 +164,7 @@
           <tr  *ngFor="let element of tableModel | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
             <td>{{element.usuario}}</td>
             <td>{{element.nombre}}</td>
-
+            <td>{{textEstado(element.estado)}}</td>
 
             <td style="width: 10vw;">
 
@@ -137,7 +182,13 @@
             >
               <mat-icon>edit</mat-icon>
             </button>
-
+            <button
+            matTooltip="Cambio Contraseña"
+            class="btn btn-sm btn-primary"
+            (click)="seleccionaCambioPass(element)"
+          >
+          <mat-icon>cached</mat-icon>
+          </button>
           </td>
 
         </tbody>

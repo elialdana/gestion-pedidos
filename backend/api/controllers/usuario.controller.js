@@ -78,12 +78,12 @@ exports.findLogin = (req, res) => {
   console.log(req.body)
  Usuario.findById(req.body.usuario, (err, data) => {
 
-  const {usuario,nombre,password,perfil} =data;
+
 
    
    resp.respuesta=false;
    if(data!=null){
-
+    const {usuario,nombre,password,perfil} =data;
    if(usuario===req.body.usuario && password===req.body.password){
       console.log('login', 'OK');
       const token = jwt.sign({usuario,nombre,perfil},'umg',{expiresIn:'1h'})
@@ -107,10 +107,10 @@ exports.verificaToken = (req,res)=>{
   if(!req.headers.authorization) return res.status(401).json('No autorizado');
   const jwt = require('jsonwebtoken');
   const token = req.headers.authorization.substr(7);
-  console.log(token)
+  
   if(token!==''){
     const content = jwt.verify(token, 'umg')
-    req.data = content;
+    
     res.status(200).json('Token correcto');
   }else{
     res.status(401).json('Token vacio');
@@ -129,7 +129,7 @@ exports.update = (req, res) => {
 
 
   Usuario.updateById(
-    req.params.id,
+    req.body.usuario,
     new Usuario (req.body),
     (err, data) => {
       console.log('dataaaaaaa',data);

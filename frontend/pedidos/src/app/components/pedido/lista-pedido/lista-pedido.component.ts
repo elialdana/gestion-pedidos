@@ -1,3 +1,4 @@
+import { ModificarPedidoComponent } from './../modificar-pedido/modificar-pedido.component';
 import { PagoComponent } from './../pago/pago.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -31,8 +32,7 @@ export class ListaPedidoComponent implements OnInit {
 
 
   pageActual: number = 1;
-  msg = '';
-  err = '';
+
   hideUpdate = true;
 
 
@@ -123,7 +123,24 @@ export class ListaPedidoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+          this.getAll()
+    });
+  }
 
+  seleccionaEditar(e: any) {
+ console.log(e)
+  let dialogRef=  this.dialog.open(ModificarPedidoComponent, {
+      data: {
+        pedido:e
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.value) {
+          this.getAll();
+        }
+      }
     });
   }
 

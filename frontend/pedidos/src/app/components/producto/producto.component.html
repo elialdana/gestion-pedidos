@@ -1,19 +1,5 @@
 <div class="container app">
-  <div class="row">
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4">
-      <div class="alert alert-success alert-dismissable" *ngIf="msg">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ msg }}
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="alert alert-danger alert-dismissable" *ngIf="err">
-        <a href="#" class="close" (click)="closeAlert()"> &times; </a>
-        {{ err }}
-      </div>
-    </div>
-  </div>
+
   <div class="row">
     <div class="col-sm-4">
       <img
@@ -25,8 +11,8 @@
       <form class="form-horizontal">
 
 
+        <h4 class="text-center" >Mantenimiento Productos</h4>
 
-        <form >
           <!-- CODIGO -->
           <div class="form-group">
             <label class="font-weight-bold"> CODIGO </label>
@@ -109,14 +95,14 @@
 
               <button
 
-                class="btn btn-lg btn-block btn-success"
+                class="btn   btn-success"
                 (click)="saveOrUpdate()"
               >
                 {{nombreBoton}}
               </button>
               <button
 
-                class="btn btn-lg btn-block btn-secondary"
+                class="btn   btn-secondary"
                 (click)="limpiar()"
               >
                 Limpiar
@@ -124,7 +110,7 @@
 
           </div>
         </form>
-      </form>
+
     </div>
   </div>
 
@@ -147,7 +133,7 @@
             <td>{{element.codigo}}</td>
             <td>{{element.nombre}}</td>
             <td>{{element.descripcion}}</td>
-            <td>{{element.estado}}</td>
+            <td>{{textEstado(element.estado)}}</td>
 
             <td style="width: 10vw;">
 

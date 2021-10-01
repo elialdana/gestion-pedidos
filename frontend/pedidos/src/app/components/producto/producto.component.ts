@@ -240,7 +240,16 @@ export class ProductoComponent implements OnInit {
 
   }
 
+  textEstado(estado:string){
+    if('A'== estado){
 
+      return 'Activo';
+    }
+    else{
+
+      return 'Inactivo';
+    }
+  }
 }
 
 

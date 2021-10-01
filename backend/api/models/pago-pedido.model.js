@@ -53,7 +53,7 @@ PagoPedido.getAll = result => {
   
   console.log(" ingresando a getall");
    
-  sql.query("SELECT * FROM pagos",
+  sql.query("SELECT * FROM pagos order by fecha_abono desc",
    (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -72,7 +72,7 @@ PagoPedido.getAllByPadre = (idPadre,result) => {
   
   
    
-  sql.query("SELECT * FROM pagos where pedido_id=?",idPadre,
+  sql.query("SELECT * FROM pagos where pedido_id=? order by fecha_abono desc",idPadre,
    (err, res) => {
     if (err) {
       console.log("error: ", err);

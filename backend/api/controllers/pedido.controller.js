@@ -9,6 +9,7 @@ exports.procesarPedido = (req, res) => {
     cliente_id: req.body.encabezado.cliente_id,
     comentario: req.body.encabezado.comentario,
     estado: 'I',
+    total:req.body.encabezado.total,
     direccion: req.body.encabezado.direccion,
     fecha_entrega: req.body.encabezado.fecha_entrega,
     usuario_registro:  req.body.encabezado.usuario_asignado,
@@ -144,9 +145,10 @@ exports.update = (req, res) => {
     });
   }
 
-  console.log(req.body);
+  console.log('MODIFICANDO PEDIDO',req.body);
 
   const pedido = new Pedido({
+    id: req.body.id,
     cliente_id: req.body.cliente_id,
     comentario: req.body.comentario,
     estado: req.body.estado,
@@ -157,7 +159,7 @@ exports.update = (req, res) => {
   });
 
   Pedido.updateById(
-    req.params.id,
+    pedido.id,
     pedido,
     (err, data) => {
       if (err) {

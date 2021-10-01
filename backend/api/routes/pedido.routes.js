@@ -9,7 +9,7 @@ module.exports = app => {
   // Retrieve a single pedido with id
   app.get("/api/pedido/:id", pedido.findOne);
 
-  // Update a pedido with id
+
   app.put("/api/pedido/:id", pedido.update);
 
   // Delete a pedido with id

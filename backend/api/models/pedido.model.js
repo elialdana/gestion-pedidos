@@ -2,13 +2,16 @@ const sql = require("./db.js");
 
 // constructor
 const Pedido  = function(pedido) {
-  
+  this.id = pedido.id;
   this.cliente_id = pedido.cliente_id;
   this.comentario = pedido.comentario;
+  this.total = pedido.total;
+  this.total_pendiente = pedido.total;
   this.estado = pedido.estado;
   this.direccion = pedido.direccion;
   this.fecha_entrega = pedido.fecha_entrega;
   this.usuario_registro = pedido.usuario_registro;
+  this.usuario_modifica = pedido.usuario_modifica;
   this.usuario_asignado = pedido.usuario_asignado;
   
 };
@@ -49,7 +52,6 @@ Pedido.findById = (id, result) => {
 
 Pedido.getAll = result => {
   
-  console.log('get all pedidos')
   
    
   sql.query("SELECT c.nombre as clienteNombre,p.* FROM pedidos p INNER JOIN clientes c ON p.cliente_id=c.id",
@@ -60,16 +62,17 @@ Pedido.getAll = result => {
       return;
     }
 
-    console.log("pedidos: ", res);
     result(null, res);
     return;
   });
 };
 
 Pedido.updateById = (id, pedido, result) => {
+console.log('MODIFICANDO PEDIDO MODEL ',pedido.id)
+console.log('MODIFICANDO PEDIDO MODEL ',pedido)
   sql.query(
-    "UPDATE pedidos SET direccion = ?, estado = ?,  direccion = ? ,FECHA_ENTREGA=? WHERE id = ?",
-    [pedido.direccion, pedido.estado, pedido.direccion,pedido.fecha_entrega, id],
+    "UPDATE pedidos SET usuario_asignado = ?, estado = ?,  FECHA_ENTREGA=?,FECHA_MODIFICACION,USUARIO_MODIFICA WHERE id = ?",
+    [pedido.usuario_asignado, pedido.estado,pedido.fecha_entrega,new Date(),pedido.usuario_modifica, pedido.id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

@@ -28,6 +28,7 @@ export class AgregarPedidoComponent implements OnInit {
   cliente:string='';
   comentario:string='';
   direccion:string='';
+  total:number=0;
 
   //Detalle
   listaProducto:any[]=[];
@@ -44,7 +45,7 @@ export class AgregarPedidoComponent implements OnInit {
 
 
   //datos
-   pedidoEncabezado ={};
+   pedidoEncabezado:any ={};
   constructor(private servicios: Servicios,public dialog: MatDialog, private router: Router,   private spinner: NgxSpinnerService){
 
   }
@@ -146,7 +147,8 @@ export class AgregarPedidoComponent implements OnInit {
       cliente_id:this.cliente,
       comentario:this.comentario,
       usuario_asignado:this.usuarioAsignado,
-      direccion:this.direccion
+      direccion:this.direccion,
+      total:this.total
     };
 
 
@@ -178,7 +180,11 @@ export class AgregarPedidoComponent implements OnInit {
 
 this.llenarMonto(this.producto);
 this.monto=this.monto * this.cantidad;
-this.monto=(this.monto+this.costoInstalacion+this.costoAdicional)-this.descuento;
+console.log('this.monto=this.monto * this.cantidad; ',this.monto)
+let montoAdicional:number=this.monto+this.costoInstalacion+this.costoAdicional;
+this.monto=this.monto+ montoAdicional;
+this.monto=this.monto-this.descuento;
+console.log('this.monto=(this.monto+this.costoInstalacion+this.costoAdicional)-this.descuento; ',this.monto)
     this.tableDetallePedido.push({
       producto_id:this.producto,
       nombre:this.nombreProducto,
@@ -233,6 +239,13 @@ procesarPedido(){
     return;
   }
 this.spinner.show();
+
+this.tableDetallePedido.forEach(e => {
+   this.total = this.total=e.monto;
+});
+
+this.pedidoEncabezado.total=this.total;
+console.log(this.pedidoEncabezado)
   let pedido={
     encabezado:this.pedidoEncabezado,
     detalle: this.tableDetallePedido

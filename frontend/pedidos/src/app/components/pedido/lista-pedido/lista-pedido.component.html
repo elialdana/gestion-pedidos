@@ -13,6 +13,7 @@
   </div>
 
   <div class="row">
+    <h4 class="text-center" >Lista de Pedidos</h4>
     <div class="table-responsive">
       <br />
       <div class="d-flex justify-content-end">
@@ -25,8 +26,12 @@
 
             <th>ID</th>
             <th>Cliente</th>
-            <th>comentario</th>
+
             <th>Usuario Asignado</th>
+
+            <th>Total</th>
+            <th>Total Pendiente</th>
+            <th>Total Pagado</th>
             <th>Estado</th>
             <th>Acciones</th>
           </tr>
@@ -36,26 +41,37 @@
 
             <td>{{element.id}}</td>
             <td>{{element.clienteNombre}}  </td>
-            <td>{{element.comentario}}</td>
             <td>{{element.usuario_asignado}}</td>
+            <td>{{element.total}}</td>
+            <td>{{element.total_pendiente}}</td>
+            <td>{{element.total_pagado}}</td>
             <td>{{estado(element.estado)}}</td>
 
             <td style="width: 10vw; " class="">
 
               <button
-              *ngIf="element.estado!=='C'"
+              *ngIf="element.estado=='I'"
               class="btn btn-sm btn-danger"
               (click)="cancelar(element)"
+              matTooltip="Cancelar Pedido"
             >
               <mat-icon>delete</mat-icon>
             </button>
-
             <button
-
-            class="btn  btn-success"
+            *ngIf="element.estado!=='C'"
+            class="btn btn-sm   btn-success"
+            matTooltip="Editar Pedido"
+            (click)="seleccionaEditar(element)"
+          >
+          <mat-icon>edit</mat-icon>
+          </button>
+            <button
+            *ngIf="element.estado!=='C'"
+            class="btn btn-sm   btn-primary"
+            matTooltip="Realizar Pago"
             (click)="pago(element)"
           >
-            Pagos
+          <mat-icon>payment</mat-icon>
           </button>
           </td>
 

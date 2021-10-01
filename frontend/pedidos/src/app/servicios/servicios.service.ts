@@ -127,6 +127,11 @@ public getAllPedidos() : Observable <any> {
  public crearPedido(json:any) : Observable <any> {
   return this.http.post<any>(this.URL_PEDIDO, json ,this.getHeadders());
  }
+
+ public modificaPedido(json:any) : Observable <any> {
+   console.log(json)
+  return this.http.put<any>(this.URL_PEDIDO+"/"+json.id, json ,this.getHeadders());
+ }
  public cancelarPedido(id:any) : Observable <any> {
   return this.http.delete<any>(this.URL_PEDIDO+'/'+id, this.getHeadders());
  }

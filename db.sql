@@ -139,6 +139,22 @@ CREATE TABLE `pedidos` (
   `usuario_asignado` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `pedidos_bitacora` (
+  `id` bigint(20) NOT NULL COMMENT 'identificador unico',
+  `cliente_id` bigint(20) DEFAULT NULL,
+  `comentario` varchar(200) DEFAULT NULL COMMENT 'comentario extra sobre el pedido, por ejemplo si el cliente quiere un detalle en especial ',
+  `estado` char(3) DEFAULT NULL COMMENT 'estado para saber en que fase se encuentra el pedido',
+  `total` decimal(15,4) NOT NULL DEFAULT '0.0000' COMMENT 'total a pagar',
+  `total_pagado` decimal(10,4) DEFAULT NULL,
+  `total_pendiente` decimal(10,4) DEFAULT NULL,
+  `fecha_ingreso` datetime DEFAULT NULL COMMENT 'fecha que se ingreso el pedido',
+  `fecha_entrega` datetime DEFAULT NULL COMMENT 'fecha de entrega del pedido',
+  `fecha_modificacion` datetime DEFAULT NULL COMMENT 'fecha de modificacion del registro',
+  `usuario_registro` varchar(20) DEFAULT NULL COMMENT 'usuario que modifico el registro',
+  `usuario_modifica` varchar(20) DEFAULT NULL COMMENT 'usuario que realizo la ultima modificacion',
+  `direccion` varchar(100) DEFAULT NULL COMMENT 'direccion en donde se instalara el pedido',
+  `usuario_asignado` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 -- Dumping data for table `pedidos`
 --
@@ -374,3 +390,7 @@ DELIMITER $$
 CREATE TRIGGER `actualiza_total_pendiente` BEFORE UPDATE ON `pedidos` FOR EACH ROW update pedidos p set p.total_pendiente=p.total- p.total_pagado  where p.id=new.id
 $$
 DELIMITER ;
+
+
+GT73BRRL01020000004005097255
+GT73BRRL01020000004005097255

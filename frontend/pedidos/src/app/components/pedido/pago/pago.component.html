@@ -69,7 +69,7 @@
             <tr  *ngFor="let element of tablePagos | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i = index">
 
 
-          <td>{{element.fecha_abono}}</td>
+          <td>{{element.fecha_abono |  date:'dd/MM/YYYY' }}</td>
           <td>{{element.abono}}</td>
           <td>{{element.descripcion}}</td>
 

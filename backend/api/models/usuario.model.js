@@ -34,7 +34,7 @@ Usuario.findById = (userID, result) => {
   
   sql.query("SELECT usuario,nombre, password, perfil FROM usuarios WHERE usuario = ?",[userID], (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      console.log("error: ", err);userID
       result(err, null);
       return;
     }
@@ -66,6 +66,7 @@ Usuario.getAll = result => {
 };
 
 Usuario.updateById = (id, user, result) => {
+  console.log(id)
   sql.query(
     "UPDATE usuarios SET dpi = ?, primernombre=?, segundonombre=?, cargo=?, primerapellido=?, segundoapellido=?, email=?, usuario=?, estado=?, codigopuntoasignado=?, password=? WHERE id = ?",
     [user.dpi, user.primernombre, user.segundonombre, user.cargo,user.primerapellido, user.segundoapellido,user.email, user.usuario, user.estado, user.codigopuntoasignado, user.password, id],
