@@ -1,18 +1,10 @@
 #CONSTRUCCION DEL PROYECTO
 FROM node:14-alpine as build-step
-
-RUN mkdir -p /app
-
-WORKDIR /app
-
+WORKDIR /the/workdir/path
 COPY package*.json /app
-
 RUN npm install
-
-COPY . /app
-
+COPY . .
 RUN npm run build --prod
-
 #INSTALACION DEL SERVIDOR
 FROM nginx:1.17.1-alpine
 EXPOSE 4200
