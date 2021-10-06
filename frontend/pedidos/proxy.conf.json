@@ -1,6 +1,6 @@
 {
   "/api/*":{
-    "target":"http://localhost:3000",
+    "target":"http://ec2-54-163-156-198.compute-1.amazonaws.com:3000",
     "secure":false,
 
     "changeOrigin": true
