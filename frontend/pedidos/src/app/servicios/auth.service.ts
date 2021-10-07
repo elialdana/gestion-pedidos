@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  private URL = 'http://ec2-54-163-156-198.compute-1.amazonaws.com:3000';
+  private URL = 'http://localhost:3000';
 
   constructor(
     private http: HttpClient,
