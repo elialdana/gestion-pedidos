@@ -13,13 +13,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class Servicios {
    URL_API_BASE = environment.baseURL;
-   URL_PRODUCTO= '/api/producto';
-   URL_PROVEEDORES=  '/api/proveedor';
+ /*  URL_PRODUCTO= '/api/producto';
+   URL_PROVEEDORES= '/api/proveedor';
    URL_CLIENTES=  '/api/cliente';
-   URL_USUARIO=  '/api/usuario';
-   URL_PEDIDO=  '/api/pedido';
+   URL_USUARIO= '/api/usuario';
+   URL_PEDIDO= '/api/pedido';
    URL_MATERIALES=  '/api/materialesProveedor';
-   URL_PAGO=  '/api/pago';
+   URL_PAGO= '/api/pago';*/
+
+   URL_PRODUCTO= this.URL_API_BASE+'/api/producto';
+   URL_PROVEEDORES=  this.URL_API_BASE+'/api/proveedor';
+   URL_CLIENTES=  this.URL_API_BASE+'/api/cliente';
+   URL_USUARIO=this.URL_API_BASE+  '/api/usuario';
+   URL_PEDIDO= this.URL_API_BASE+ '/api/pedido';
+   URL_MATERIALES= this.URL_API_BASE+ '/api/materialesProveedor';
+   URL_PAGO=  this.URL_API_BASE+'/api/pago';
    constructor(private http: HttpClient) { }
 
    getHeadders(){
@@ -54,7 +62,7 @@ export class Servicios {
    public deleteProducto( id:String) : Observable <any> {
 
 
-    return this.http.delete<any>(this.URL_PRODUCTO+'/'+id, this.getHeadders());
+    return this.http.post<any>(this.URL_PRODUCTO+'/'+id,{id:id}, this.getHeadders());
    }
 
 

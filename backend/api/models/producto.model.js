@@ -69,8 +69,8 @@ productos.getAll = result => {
 
 productos.updateById = (id, productos, result) => {
   sql.query(
-    "UPDATE productos SET nombre = ?, descripcion = ?, estado = ?,stock=?,codigo=?,proveedor_id WHERE id = ?",
-    [productos.nombre, productos.descripcion,productos.estado,productos.stock,productos.codigo,productos.proveedor_id,id],
+    "UPDATE productos SET codigo=?, nombre = ?,precio, descripcion = ?, estado = ?,stock=? WHERE id = ?",
+    [productos.codigo,productos.nombre, productos.precio,productos.descripcion,productos.estado,productos.stock,id],
     (err, res) => {
       if (err) {
         
@@ -91,7 +91,7 @@ productos.updateById = (id, productos, result) => {
 };
 
 productos.remove = (id, result) => {
-  sql.query("UPDATE productos SET ESTADO='I' WHERE id = ?", id, (err, res) => {
+  sql.query("UPDATE productos SET ESTADO='I' WHERE id = "+id , (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

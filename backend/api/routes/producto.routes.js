@@ -13,7 +13,7 @@ module.exports = app => {
   app.put("/api/producto/:id", producto.update);
 
   // Delete a producto with customerId
-  app.delete("/api/producto/:id", producto.delete);
+  app.post("/api/producto/:id", producto.delete);
 
 
 };
