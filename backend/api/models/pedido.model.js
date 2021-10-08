@@ -70,8 +70,8 @@ Pedido.getAll = result => {
 Pedido.updateById = (id, pedido, result) => {
 
   sql.query(
-    "UPDATE pedidos SET usuario_asignado = ?, estado = ?,  FECHA_ENTREGA=?,FECHA_MODIFICACION,USUARIO_MODIFICA WHERE id = ?",
-    [pedido.usuario_asignado, pedido.estado,pedido.fecha_entrega,new Date(),pedido.usuario_modifica, pedido.id],
+    "UPDATE pedidos SET usuario_asignado = ?, estado = ?,  FECHA_ENTREGA=?,FECHA_MODIFICACION=? WHERE id = "+id,
+    [pedido.usuario_asignado, pedido.estado,pedido.fecha_entrega,new Date()],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

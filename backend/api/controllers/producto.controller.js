@@ -126,13 +126,17 @@ exports.update = (req, res) => {
   
 
   const producto = new Producto({
+    id: req.body.id,
+    codigo: req.body.codigo,
     nombre: req.body.nombre,
     descripcion: req.body.descripcion,
-    estado: req.body.estado
+    estado: req.body.estado,
+    calcular_precio: req.body.estado,
+    precio_predeterminado: req.body.precio_predeterminado
   });
 
   Producto.updateById(
-    req.params.id,
+    producto.id,
     producto,
     (err, data) => {
       if (err) {
@@ -166,7 +170,7 @@ exports.delete = (req, res) => {
   if(!content){
     res.status(401).json('Token invalido');
   }
-  Producto.remove(req.params.id, (err, data) => {
+  Producto.remove(req.body.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({

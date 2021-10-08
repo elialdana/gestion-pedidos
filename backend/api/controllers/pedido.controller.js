@@ -153,7 +153,7 @@ exports.update = (req, res) => {
     usuario_registro: req.body.usuario_registro,
     usuario_asignado: req.body.usuario_asignado
   });
-
+  console.log('pedido ------------------',pedido)
   Pedido.updateById(
     pedido.id,
     pedido,

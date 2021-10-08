@@ -12,9 +12,15 @@ import { Component, OnInit, Inject } from '@angular/core';
 export class ModificarPedidoComponent implements OnInit {
   listaUsuarios:any[]=[];
   comentario:string='';
+
   constructor(private servicios: Servicios,@Inject(MAT_DIALOG_DATA) public data: any,   public dialog: MatDialog,
-  private spinner: NgxSpinnerService) { }
+  private spinner: NgxSpinnerService) {
+
+
+   }
   ngOnInit() {
+
+
 
     this.listaUsuarios = [];
     let lista = this.servicios.getAllUsuario();
@@ -30,6 +36,7 @@ export class ModificarPedidoComponent implements OnInit {
 
   modifica(){
 this.spinner.show();
+this.data.pedido.comentario=this.comentario;
     this.servicios.modificaPedido(this.data.pedido).subscribe((res: any) => {
 
 

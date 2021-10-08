@@ -77,6 +77,7 @@ exports.update = (req, res) => {
   
 
   const materialesProveedor = new MaterialesProveedor({
+    id: req.body.id,
     codigo: req.body.codigo,
     nombre: req.body.nombre,
     proveedor: req.body.proveedor,

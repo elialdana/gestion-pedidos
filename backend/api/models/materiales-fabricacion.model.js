@@ -69,7 +69,7 @@ MaterialesFabricacion.getAll = result => {
 
 MaterialesFabricacion.updateById = (id, materialesFabricacion, result) => {
   sql.query(
-    "UPDATE materiales SET NOMBRE = ?, DESCRIPCION = ?, stock =?,telefono_notificacion=?,  email_notificacion=? ,fecha_modificacion=? WHERE id = ?",
+    "UPDATE materiales SET nombre = ?, descripcion = ?, stock =?,telefono_notificacion=?,  email_notificacion=? ,fecha_modificacion=? WHERE id = ?",
     [materialesFabricacion.nombre, materialesFabricacion.descripcion, materialesFabricacion.stock,materialesFabricacion.telefono_notificacion,materialesFabricacion.email_notificacion,materialesFabricacion.fecha_modificacion ,id],
     (err, res) => {
       if (err) {
