@@ -2,7 +2,7 @@ const PagoPedido = require("../models/pago-pedido.model");
 
 
 exports.create = (req, res) => {
-  console.log("reques ",req.body)
+  
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -75,7 +75,7 @@ exports.update = (req, res) => {
     });
   }
 
-  console.log(req.body);
+  
 
   const pago = new PagoPedido({
     pedido_id: req.body.pedido_id,

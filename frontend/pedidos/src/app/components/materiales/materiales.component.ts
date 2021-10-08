@@ -52,7 +52,7 @@ export class MaterialesComponent implements OnInit {
   }
 
   saveOrUpdate() {
-    console.log('id', this.id);
+
     if (this.id == null || this.id == '') {
       this.agregar();
     } else {
@@ -95,7 +95,7 @@ export class MaterialesComponent implements OnInit {
           };
 
           this.servicios.saveMaterial(Material).subscribe((res: any) => {
-            console.log(res)
+
             this.tableModel.push(res);
 
             this.dialog.open(AlertDialogComponent, {
@@ -139,6 +139,7 @@ export class MaterialesComponent implements OnInit {
     this.correo='';
     this.nombreBoton = 'Guardar';
     this.id='';
+    this.stock=0;
     this.proveedor='';
     this.spinner.hide();
   }
@@ -179,11 +180,13 @@ export class MaterialesComponent implements OnInit {
             precio_compra:this.precioCompra,
             email_notificacion:this.correo,
             telefono_notificacion:this.telefono,
+            stock:this.stock,
+            fecha_modificacion:new Date()
 
           };
 
           this.servicios.updateMaterial(Material, Material.id).subscribe((res: any) => {
-            console.log('updateMaterial', res)
+
             this.obtenerMaterials();
 
             this.limpiar();
@@ -199,13 +202,17 @@ export class MaterialesComponent implements OnInit {
   }
 
   seleccionaEditar(i: any): void {
-    console.log('Material a modificar ', i)
-    this.id = i.id;
 
     this.nombreBoton = 'Modificar';
-    this.nombre = i.nombre;
+    this.id = i.id;
     this.codigo = i.codigo;
     this.descripcion = i.descripcion;
+    this.nombre = i.nombre;
+    this.correo =i.email_notificacion
+    this.precioCompra=i.precio_compra,
+    this.precioVenta=i.precio_venta,
+    this.proveedor=i.proveedor_id,
+    this.stock=i.stock,
     this.estado = i.estado == 'A' ? 'true' : 'false';
     this.precioCompra = i.precio_compra;
     this.precioVenta= i.precio_venta;
@@ -232,7 +239,7 @@ export class MaterialesComponent implements OnInit {
       if (result) {
         if (result.value) {
           this.servicios.deleteMaterial(id).subscribe((res: any) => {
-            console.log('deleteMaterial', res)
+
             this.obtenerMaterials();
             this.dialogoInformacion('Transacción exitosa');
           });
@@ -273,6 +280,18 @@ export class MaterialesComponent implements OnInit {
       });
     }
 
-}
+
+
+  cambiarEstado(txt:string){
+    if('A'== txt){
+
+      return 'Activo';
+    }
+    else{
+
+      return 'Inactivo';
+    }
+  }
+  }
 
 

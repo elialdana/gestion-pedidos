@@ -126,7 +126,7 @@ validaciones(){
         if (result.value) {
 
           this.password =crypto.SHA512(this.dpi).toString();
-          console.log('pass ', this.password)
+
           this.spinner.show();
           let request = {
             usuario:this.usuario,
@@ -142,7 +142,7 @@ validaciones(){
           };
 
           this.servicios.saveUsuario(request).subscribe((res: any) => {
-            console.log(res)
+
             this.tableModel.push(res);
 
             this.dialog.open(AlertDialogComponent, {
@@ -256,7 +256,7 @@ validaciones(){
   }
 
   eliminar(i: any): void {
-    let id = i.id;
+
 
     let dialogRef = this.dialog.open(AlertDialogComponent, {
       data: {
@@ -273,8 +273,8 @@ validaciones(){
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.value) {
-          this.servicios.deleteUsuario(id).subscribe((res: any) => {
-            console.log('deleteProducto', res)
+          this.servicios.deleteUsuario(i).subscribe((res: any) => {
+
             this.getAll();
             this.dialogoInformacion('Transacción exitosa');
           });
@@ -286,12 +286,12 @@ validaciones(){
 
  seleccionaCambioPass(i: any): void {
       this.usuario= i.usuario;
-    console.log(i)
+
       this.cambioPass=true;
  }
 
  accionCambioPass(){
-   console.log('password ', this.password)
+
    if(!this.password){
     this.dialog.open(AlertDialogComponent, {
       data: {
@@ -311,7 +311,7 @@ validaciones(){
   password: crypto.SHA512(this.password).toString()
  }
 
- console.log(this.usuario)
+
   this.servicios.updateUsuario(request, this.usuario).subscribe((res: any) => {
 
 

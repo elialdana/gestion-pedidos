@@ -128,7 +128,7 @@ export class ListaPedidoComponent implements OnInit {
   }
 
   seleccionaEditar(e: any) {
- console.log(e)
+
   let dialogRef=  this.dialog.open(ModificarPedidoComponent, {
       data: {
         pedido:e

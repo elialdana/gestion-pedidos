@@ -31,10 +31,10 @@ export class ModificarPedidoComponent implements OnInit {
   modifica(){
 this.spinner.show();
     this.servicios.modificaPedido(this.data.pedido).subscribe((res: any) => {
-      console.log(res)
+
 
       this.spinner.hide();
-       this.dialog.open(AlertDialogComponent, {
+    let dialogRef=   this.dialog.open(AlertDialogComponent, {
         data: {
           title: '',
           text: `Pedido modificado con exito`,
@@ -44,6 +44,14 @@ this.spinner.show();
           confirmButtonText: 'Aceptar',
           cancelButtonText: '',
         },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          if (result.value) {
+            this.dialog.closeAll();
+          }
+        }
       });
     });
 

@@ -2,6 +2,7 @@ const sql = require("./db.js");
 
 // constructor
 const Usuario = function(user) {
+  console.log('modelo ',user)
   this.usuario=user.usuario;
     this.dpi= user.dpi;
     this.password=user.password;
@@ -60,7 +61,7 @@ Usuario.getAll = result => {
       return;
     }
 
-    console.log("banco_users: ", res);
+    
     result(null, res);
   });
 };
@@ -68,9 +69,10 @@ Usuario.getAll = result => {
 Usuario.updateById = (id, user, result) => {
   console.log(id)
   sql.query(
-    "UPDATE usuarios SET dpi = ?, primernombre=?, segundonombre=?, cargo=?, primerapellido=?, segundoapellido=?, email=?, usuario=?, estado=?, codigopuntoasignado=?, password=? WHERE id = ?",
-    [user.dpi, user.primernombre, user.segundonombre, user.cargo,user.primerapellido, user.segundoapellido,user.email, user.usuario, user.estado, user.codigopuntoasignado, user.password, id],
+    "UPDATE usuarios SET dpi = ?,nombre=?, direccion=?,  perfil=?  WHERE usuario = ? ",
+    [user.dpi, user.nombre, user.direccion, user.perfil, user.usuario],
     (err, res) => {
+      console.log("res: ", res);
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -82,11 +84,35 @@ Usuario.updateById = (id, user, result) => {
         result({ kind: "not_found" }, null);
         return;
       }
-      user.id=id;
+     
       console.log("updated user: ", { id: id, ...user });
-      result(null, { id: id, ...user });
+      result(null, {...user });
     }
   );
 };
 
+Usuario.desactivar = (id, result) => {
+  console.log(id)
+  sql.query(
+    "UPDATE usuarios SET estado='I' WHERE usuario = ? ",
+    [ id],
+    (err, res) => {
+      
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found Customer with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+     
+      
+      result(null, true);
+    }
+  );
+};
 module.exports = Usuario;

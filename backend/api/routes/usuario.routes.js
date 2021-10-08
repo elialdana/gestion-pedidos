@@ -4,7 +4,7 @@ module.exports = app => {
   app.post("/api/usuario", users.create);
 
   app.put("/api/usuario/:usuario", users.update);
-
+  app.post("/api/usuario/desactivar", users.desactivar);
   app.post("/usuario/authenticate",users.findLogin);
   app.post("/api/usuario/verifica/token",users.verificaToken);
   app.get("/api/usuario",users.findAll);

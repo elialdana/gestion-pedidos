@@ -85,7 +85,7 @@ export class ProductoComponent implements OnInit {
           };
 
           this.servicios.saveProducto(producto).subscribe((res: any) => {
-            console.log(res)
+
             this.tableModel.push(res);
 
             this.dialog.open(AlertDialogComponent, {
@@ -165,7 +165,7 @@ export class ProductoComponent implements OnInit {
           };
 
           this.servicios.updateProducto(producto, producto.id).subscribe((res: any) => {
-            console.log('updateProducto', res)
+
             this.obtenerProductos();
 
             this.limpiar();
@@ -181,7 +181,7 @@ export class ProductoComponent implements OnInit {
   }
 
   seleccionaEditar(i: any): void {
-    console.log('producto a modificar ', i)
+
     this.id = i.id;
 
     this.nombreBoton = 'Modificar';
@@ -213,8 +213,7 @@ export class ProductoComponent implements OnInit {
       if (result) {
         if (result.value) {
           this.servicios.deleteProducto(id).subscribe((res: any) => {
-            console.log('deleteProducto', res)
-            this.obtenerProductos();
+              this.obtenerProductos();
             this.dialogoInformacion('Transacción exitosa');
           });
         }

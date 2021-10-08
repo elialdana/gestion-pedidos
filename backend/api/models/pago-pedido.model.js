@@ -15,7 +15,7 @@ const PagoPedido = function(pago) {
 PagoPedido.create = (newPagoPedido, result) => {
 
 
-  console.log('PagoPedido que llega ',newPagoPedido);
+  
   sql.query("INSERT INTO pagos SET ?", newPagoPedido, (err, res) => {
    
     if (err) {
@@ -24,7 +24,7 @@ PagoPedido.create = (newPagoPedido, result) => {
       return;
     }
 
-    console.log("created pago: ", { id: res.insertId, ...newPagoPedido });
+  
     result(null, { id: res.insertId, ...newPagoPedido });
   });
 };
@@ -103,7 +103,7 @@ PagoPedido.updateById = (id, pago, result) => {
         return;
       }
 
-      console.log("updated pago: ", { id: id, ...pago });
+      
       result(null, { id: id, ...pago });
     }
   );

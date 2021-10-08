@@ -3,7 +3,7 @@ const Producto = require("../models/proveedor.model");
 
 
 exports.create = (req, res) => {
-  console.log("reques",req.body)
+  
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -70,9 +70,10 @@ exports.update = (req, res) => {
     });
   }
 
-  console.log(req.body);
+  
 
   const producto = new Proveedor({
+    id: req.body.id,
     nombre: req.body.nombre,
     telefono: req.body.telefono,
     descripcion: req.body.descripcion,
@@ -82,7 +83,7 @@ exports.update = (req, res) => {
   });
 
   Proveedor.updateById(
-    req.params.id,
+    producto.id,
     producto,
     (err, data) => {
       if (err) {

@@ -81,7 +81,7 @@ Proveedor.updateById = (id, proveedor, result) => {
         return;
       }
 
-      console.log("updated proveedor: ", { id: id, ...proveedor });
+      
       result(null, { id: id, ...proveedor });
     }
   );

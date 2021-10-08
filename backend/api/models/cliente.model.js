@@ -16,12 +16,12 @@ Cliente.create = (newCliente, result) => {
   sql.query("INSERT INTO clientes SET ?", newCliente, (err, res) => {
    
     if (err) {
-      console.log("error: ", err);
+      
       result(err, null);
       return;
     }
 
-    console.log("created cliente: ", { id: res.insertId, ...newCliente });
+    
     result(null, { id: res.insertId, ...newCliente });
   });
 };

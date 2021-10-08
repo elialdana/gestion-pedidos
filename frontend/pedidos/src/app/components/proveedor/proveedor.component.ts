@@ -83,7 +83,7 @@ export class ProveedorComponent implements OnInit {
           };
 
           this.servicios.saveProveedor(request).subscribe((res: any) => {
-            console.log(res)
+
             this.tableModel.push(res);
 
             this.dialog.open(AlertDialogComponent, {
@@ -210,7 +210,7 @@ export class ProveedorComponent implements OnInit {
       if (result) {
         if (result.value) {
           this.servicios.deleteProveedor(id).subscribe((res: any) => {
-            console.log('deleteProducto', res)
+
             this.getAll();
             this.dialogoInformacion('Transacción exitosa');
           });

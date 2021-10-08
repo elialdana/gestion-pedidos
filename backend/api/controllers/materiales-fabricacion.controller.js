@@ -2,7 +2,7 @@ const MaterialesProveedor = require("../models/materiales-fabricacion.model");
 
 
 exports.create = (req, res) => {
-  console.log("reques",req.body)
+  
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -74,7 +74,7 @@ exports.update = (req, res) => {
     });
   }
 
-  console.log(req.body);
+  
 
   const materialesProveedor = new MaterialesProveedor({
     codigo: req.body.codigo,
@@ -92,7 +92,7 @@ exports.update = (req, res) => {
   });
 
   MaterialesProveedor.updateById(
-    req.params.id,
+    materialesProveedor.id,
     materialesProveedor,
     (err, data) => {
       if (err) {

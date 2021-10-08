@@ -2,9 +2,7 @@ const Pedido = require("../models/pedido.model");
 const PedidoDetalle = require("../models/detalle-pedido.model")
 const Material = require("../models/materiales-utilizados.model")
 exports.procesarPedido = (req, res) => {
-  console.log("procesarPedido creando pedido controller ");
-  console.log("--------------------request",req.body)
-
+ 
   const pedido = new Pedido({
     cliente_id: req.body.encabezado.cliente_id,
     comentario: req.body.encabezado.comentario,
@@ -17,7 +15,7 @@ exports.procesarPedido = (req, res) => {
 
   });
   Pedido.create(pedido, (err, data) => {
-    if (err)
+        if (err)
       res.status(500).send({
         message:
           err.message || "Some error occurred while creating the Customer."
@@ -25,7 +23,7 @@ exports.procesarPedido = (req, res) => {
     else{
       req.body.detalle.forEach(e => {
         const detalle  = new PedidoDetalle({
-          pedido_id : data.id,
+          pedido_id : data.insertId,
           producto_id :e.producto_id,
           comentario : e.comentario,
          
@@ -76,8 +74,6 @@ exports.procesarPedido = (req, res) => {
   
 }
 exports.create = (req, res) => {
-  console.log("creando pedido controller ");
-  console.log("--------------------request",req.body)
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -145,7 +141,7 @@ exports.update = (req, res) => {
     });
   }
 
-  console.log('MODIFICANDO PEDIDO',req.body);
+  
 
   const pedido = new Pedido({
     id: req.body.id,

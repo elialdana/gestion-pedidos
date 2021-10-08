@@ -11,7 +11,7 @@ exports.create = (req, res) => {
   if(!req.headers.authorization) return res.status(401).json('No autorizado');
   const jwt = require('jsonwebtoken');
   const token = req.headers.authorization.substr(7);
-  console.log(token)
+  
   if(token==''){
     res.status(401).json('Token vacio');
    
@@ -19,7 +19,7 @@ exports.create = (req, res) => {
 
   const content = jwt.verify(token, 'umg')
   
-  console.log(content)
+  
   const cliente = new Cliente({   
   
     dpi : req.body.dpi,
@@ -81,7 +81,7 @@ exports.update = (req, res) => {
     });
   }
 
-  console.log(req.body);
+  
 
   const producto = new Cliente({
    

@@ -104,17 +104,14 @@ export class AgregarPedidoComponent implements OnInit {
   }
 
   mostrarSiguiente1( cliente:string,usuarioAsignado:string,comentario:string ,direccion:string){
-    console.log("evento ",cliente &&
-    usuarioAsignado &&
 
-    direccion )
     if(cliente &&
     usuarioAsignado &&
 
     direccion  ){
 
       this.mostrarSigStep1=true;
-  console.log(" this.mostrarSigStep1 "+ this.mostrarSigStep1)
+
     }
 
   }
@@ -180,11 +177,11 @@ export class AgregarPedidoComponent implements OnInit {
 
 this.llenarMonto(this.producto);
 this.monto=this.monto * this.cantidad;
-console.log('this.monto=this.monto * this.cantidad; ',this.monto)
+
 let montoAdicional:number=this.monto+this.costoInstalacion+this.costoAdicional;
 this.monto=this.monto+ montoAdicional;
 this.monto=this.monto-this.descuento;
-console.log('this.monto=(this.monto+this.costoInstalacion+this.costoAdicional)-this.descuento; ',this.monto)
+
     this.tableDetallePedido.push({
       producto_id:this.producto,
       nombre:this.nombreProducto,
@@ -207,7 +204,7 @@ console.log('this.monto=(this.monto+this.costoInstalacion+this.costoAdicional)-t
         if(e.codigo==id){
           this.monto=e.precio_predeterminado
           this.nombreProducto=e.nombre
-          console.log(e)
+
         }
     });
   }
@@ -222,7 +219,7 @@ agregarMaterial(element:any){
   dialogRef.afterClosed().subscribe(result => {
 
     element.listaMateriales=result
-    console.log(element.listaMateriales);
+
     this.tableDetallePedido.push(element)
   });
 
@@ -245,14 +242,14 @@ this.tableDetallePedido.forEach(e => {
 });
 
 this.pedidoEncabezado.total=this.total;
-console.log(this.pedidoEncabezado)
+
   let pedido={
     encabezado:this.pedidoEncabezado,
     detalle: this.tableDetallePedido
   }
 
   this.servicios.crearPedido(pedido).subscribe((res: any) => {
-    console.log(res)
+
 
     let dialogRef = this.dialog.open(AlertDialogComponent, {
       data: {

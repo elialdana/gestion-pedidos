@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
     this.usuario=data;
     this.perfil=data.perfil;
     this.nombre=data.nombre;
-    console.log('usuario',data);
+
   }
 
   validaRol(rol:string){

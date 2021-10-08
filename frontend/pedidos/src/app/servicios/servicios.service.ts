@@ -61,7 +61,7 @@ export class Servicios {
    //###################################################### SERVICIOS DE PROVEEDORES #############################################################################
   public saveProveedor(json: Object) : Observable <any> {
 
-    console.log(json)
+
     return this.http.post<any>(this.URL_PROVEEDORES, json,this.getHeadders());
    }
 
@@ -84,7 +84,7 @@ export class Servicios {
    //###################################################### SERVICIOS DE CLIENTES #############################################################################
    public saveCliente(json: Object) : Observable <any> {
 
-    console.log(json)
+
     return this.http.post<any>(this.URL_CLIENTES, json,this.getHeadders());
    }
 
@@ -102,7 +102,7 @@ export class Servicios {
    //###################################################### SERVICIOS DE USUARIO #############################################################################
    public saveUsuario(json: Object) : Observable <any> {
 
-    console.log(json)
+
     return this.http.post<any>(this.URL_USUARIO, json,this.getHeadders());
    }
 
@@ -115,10 +115,10 @@ export class Servicios {
    public getAllUsuario() : Observable <any> {
     return this.http.get<any>(this.URL_USUARIO);
    }
-   public deleteUsuario( id:String) : Observable <any> {
+   public deleteUsuario( json:any) : Observable <any> {
 
 
-    return this.http.delete<any>(this.URL_USUARIO+'/'+id, this.getHeadders());
+    return this.http.post<any>(this.URL_USUARIO+'/desactivar' ,json,this.getHeadders());
    }
 //###################################################### SERVICIOS DE PEDIDO #############################################################################
 public getAllPedidos() : Observable <any> {
@@ -129,7 +129,7 @@ public getAllPedidos() : Observable <any> {
  }
 
  public modificaPedido(json:any) : Observable <any> {
-   console.log(json)
+
   return this.http.put<any>(this.URL_PEDIDO+"/"+json.id, json ,this.getHeadders());
  }
  public cancelarPedido(id:any) : Observable <any> {
@@ -164,8 +164,6 @@ public updateMaterial(json: Object, id:String) : Observable <any> {
 
 public savePago(json: Object) : Observable <any> {
 
-  console.log(json)
-  console.log(this.URL_PAGO)
   return this.http.post<any>(this.URL_PAGO, json,this.getHeadders());
  }
 

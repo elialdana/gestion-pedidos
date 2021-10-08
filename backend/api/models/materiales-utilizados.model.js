@@ -61,8 +61,8 @@ MaterialesUtilizados.getAll = result => {
 
 MaterialesUtilizados.updateById = (id, materiales, result) => {
   sql.query(
-    "UPDATE materiales_fabricacion SET NOMBRE = ?, DESCRIPCION = ?, stock =?, fecha_ingreso=?  WHERE id = ?",
-    [materiales.nombre, materiales.descripcion, materiales.stock,materiales.fecha_ingreso, id],
+    "UPDATE materiales_fabricacion SET NOMBRE = ?, DESCRIPCION = ?, stock =?, fecha_modificacion=?  WHERE id = ?",
+    [materiales.nombre, materiales.descripcion, materiales.stock,materiales.fecha_modificacion, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

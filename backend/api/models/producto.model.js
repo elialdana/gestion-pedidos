@@ -15,7 +15,7 @@ const Producto = function(producto) {
 Producto.create = (newProducto, result) => {
 
 
-  console.log('Producto que llega ',newProducto);
+  
   sql.query("INSERT INTO productos SET ?", newProducto, (err, res) => {
    
     if (err) {
@@ -24,7 +24,7 @@ Producto.create = (newProducto, result) => {
       return;
     }
 
-    console.log("created producto: ", { id: res.insertId, ...newProducto });
+    
     result(null, { id: res.insertId, ...newProducto });
   });
 };
@@ -32,13 +32,13 @@ Producto.create = (newProducto, result) => {
 Producto.findById = (productoId, result) => {
   sql.query(`SELECT * FROM PRODUCTOS WHERE id = ${productoId}`, (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      
       result(err, null);
       return;
     }
 
     if (res.length) {
-      console.log("found producto: ", res[0]);
+      
       result(null, res[0]);
       return;
     }
@@ -51,7 +51,7 @@ Producto.findById = (productoId, result) => {
 Producto.getAll = result => {
   
   
-  console.log(" ingresando a getall");
+  
    
   sql.query("SELECT * FROM PRODUCTOS where estado='A'",
    (err, res) => {
@@ -61,7 +61,7 @@ Producto.getAll = result => {
       return;
     }
 
-    console.log("productos: ", res);
+    
     result(null, res);
     return;
   });
@@ -73,7 +73,7 @@ Producto.updateById = (id, producto, result) => {
     [producto.nombre, producto.descripcion,producto.estado,id],
     (err, res) => {
       if (err) {
-        console.log("error: ", err);
+        
         result(null, err);
         return;
       }
@@ -84,7 +84,7 @@ Producto.updateById = (id, producto, result) => {
         return;
       }
 
-      console.log("updated producto: ", { id: id, ...producto });
+      
       result(null, { id: id, ...producto });
     }
   );
@@ -104,7 +104,7 @@ Producto.remove = (id, result) => {
       return;
     }
 
-    console.log("deleted TLC_PRODUCTOS with id: ", id);
+    
     result(null, res);
   });
 };

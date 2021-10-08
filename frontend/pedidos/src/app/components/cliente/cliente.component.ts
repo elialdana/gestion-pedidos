@@ -89,7 +89,7 @@ export class ClienteComponent implements OnInit {
           };
 
           this.servicios.saveCliente(request).subscribe((res: any) => {
-            console.log(res)
+
             this.tableModel.push(res);
 
             this.dialog.open(AlertDialogComponent, {

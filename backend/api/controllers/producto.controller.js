@@ -2,7 +2,7 @@ const Producto = require("../models/producto.model");
 
 
 exports.create = (req, res) => {
-  console.log("reques",req.body)
+  
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -123,7 +123,7 @@ exports.update = (req, res) => {
   if(!content){
     res.status(401).json('Token invalido');
   }
-  console.log(req.body);
+  
 
   const producto = new Producto({
     nombre: req.body.nombre,

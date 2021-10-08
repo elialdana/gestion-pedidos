@@ -41,7 +41,7 @@ export class PagoComponent implements OnInit {
 
 
     this.servicios.savePago(json).subscribe((res: any) => {
-       console.log(res)
+
        this.getAll();
        this.spinner.hide();
        this.dialog.open(AlertDialogComponent, {

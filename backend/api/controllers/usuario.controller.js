@@ -65,7 +65,7 @@ exports.findOne = (req, res) => {
 
 //login method
 exports.findLogin = (req, res) => {
- // console.log("se le envia estoooooo", req.body.usuario);
+ 
 
 
  const jwt = require('jsonwebtoken');
@@ -75,7 +75,7 @@ exports.findLogin = (req, res) => {
   
   };
 
-  console.log(req.body)
+  
  Usuario.findById(req.body.usuario, (err, data) => {
 
 
@@ -85,7 +85,7 @@ exports.findLogin = (req, res) => {
    if(data!=null){
     const {usuario,nombre,password,perfil} =data;
    if(usuario===req.body.usuario && password===req.body.password){
-      console.log('login', 'OK');
+      
       const token = jwt.sign({usuario,nombre,perfil},'umg',{expiresIn:'1h'})
     
 
@@ -132,7 +132,7 @@ exports.update = (req, res) => {
     req.body.usuario,
     new Usuario (req.body),
     (err, data) => {
-      console.log('dataaaaaaa',data);
+      
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
@@ -148,3 +148,33 @@ exports.update = (req, res) => {
   );
 };
 
+
+exports.desactivar = (req, res) => {
+  // Validate Request
+  
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+
+  Usuario.desactivar(
+    req.body.usuario,
+
+    (err, data) => {
+      
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found User .`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error updating User " 
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};

@@ -22,7 +22,7 @@ export class RoleGuard implements CanActivate {
 
     let data:any= decode(token);
 
-    console.log(data);
+
 
     if( !this.authService.isAuth() || data.perfil !== expectedRole){
         localStorage.removeItem('token');
