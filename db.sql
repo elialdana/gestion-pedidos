@@ -1,11 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.8.4
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Sep 21, 2021 at 11:38 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,6 +31,9 @@ CREATE TABLE `clientes` (
   `correo_electronico` varchar(100) DEFAULT NULL COMMENT 'correo electronico para notificaciones'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='tabla para guardar el nuevo cliente';
 
+--
+-- Dumping data for table `clientes`
+--
 
 
 
@@ -61,7 +56,9 @@ CREATE TABLE `detalle_pedido_cliente` (
   `necesita_materiales` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='tabla para guardar el producto solicitado';
 
-
+--
+-- Dumping data for table `detalle_pedido_cliente`
+--
 
 -- --------------------------------------------------------
 
@@ -85,6 +82,10 @@ CREATE TABLE `materiales` (
   `estado` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='materiales de la fabricacion';
 
+--
+-- Dumping data for table `materiales`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +93,7 @@ CREATE TABLE `materiales` (
 --
 
 CREATE TABLE `materiales_utilizados` (
+  `id` int(11) NOT NULL,
   `detalle_pedido_id` bigint(20) DEFAULT NULL,
   `material_id` bigint(20) DEFAULT NULL,
   `cantidad` decimal(10,2) DEFAULT NULL,
@@ -101,6 +103,16 @@ CREATE TABLE `materiales_utilizados` (
 --
 -- Dumping data for table `materiales_utilizados`
 --
+
+
+
+--
+-- Triggers `materiales_utilizados`
+--
+DELIMITER $$
+CREATE TRIGGER `actualiza_stock` AFTER INSERT ON `materiales_utilizados` FOR EACH ROW update materiales m set m.stock=m.stock- new.cantidad where m.id=new.material_id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -112,9 +124,25 @@ CREATE TABLE `pagos` (
   `id` bigint(20) NOT NULL,
   `pedido_id` bigint(20) DEFAULT NULL,
   `abono` decimal(15,4) DEFAULT NULL,
-  `fecha_abono` date DEFAULT NULL,
+  `fecha_abono` datetime DEFAULT CURRENT_TIMESTAMP,
   `descripcion` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pagos`
+--
+
+
+--
+-- Triggers `pagos`
+--
+DELIMITER $$
+CREATE TRIGGER `actualiza_total_pagado` AFTER INSERT ON `pagos` FOR EACH ROW update pedidos p set p.total_pagado= p.total_pagado + NEW.abono, p.total_pendiente= p.total_pendiente - NEW.abono  
+
+
+where p.id=new.pedido_id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -127,10 +155,10 @@ CREATE TABLE `pedidos` (
   `cliente_id` bigint(20) DEFAULT NULL,
   `comentario` varchar(200) DEFAULT NULL COMMENT 'comentario extra sobre el pedido, por ejemplo si el cliente quiere un detalle en especial ',
   `estado` char(3) DEFAULT NULL COMMENT 'estado para saber en que fase se encuentra el pedido',
-  `total` decimal(15,4) NOT NULL DEFAULT '0.0000' COMMENT 'total a pagar',
-  `total_pagado` decimal(10,4) DEFAULT NULL,
-  `total_pendiente` decimal(10,4) DEFAULT NULL,
-  `fecha_ingreso` datetime DEFAULT NULL COMMENT 'fecha que se ingreso el pedido',
+  `total` decimal(15,4) NOT NULL COMMENT 'total a pagar',
+  `total_pagado` decimal(10,4) DEFAULT '0.0000',
+  `total_pendiente` decimal(10,4) DEFAULT '0.0000',
+  `fecha_ingreso` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'fecha que se ingreso el pedido',
   `fecha_entrega` datetime DEFAULT NULL COMMENT 'fecha de entrega del pedido',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'fecha de modificacion del registro',
   `usuario_registro` varchar(20) DEFAULT NULL COMMENT 'usuario que modifico el registro',
@@ -139,8 +167,27 @@ CREATE TABLE `pedidos` (
   `usuario_asignado` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pedidos`
+--
+
+--
+-- Triggers `pedidos`
+--
+DELIMITER $$
+CREATE TRIGGER `bitacora_pedidos_update` AFTER UPDATE ON `pedidos` FOR EACH ROW INSERT INTO `pedidos_bitacora`( `pedido_id`, `cliente_id`, `comentario`, `estado`, `total`, `total_pagado`, `total_pendiente`, `fecha_ingreso`, `fecha_entrega`, `fecha_modificacion`, `usuario_registro`, `usuario_modifica`, `direccion`, `usuario_asignado`) VALUES (new.id, new.cliente_id, new.comentario, new.estado, new.total, new.total_pagado, new.total_pendiente, new.fecha_ingreso, new.fecha_entrega, new.fecha_modificacion, new.usuario_registro, new.usuario_modifica, new.direccion, new.usuario_asignado)
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pedidos_bitacora`
+--
+
 CREATE TABLE `pedidos_bitacora` (
   `id` bigint(20) NOT NULL COMMENT 'identificador unico',
+  `pedido_id` bigint(20) NOT NULL COMMENT 'id pedido',
   `cliente_id` bigint(20) DEFAULT NULL,
   `comentario` varchar(200) DEFAULT NULL COMMENT 'comentario extra sobre el pedido, por ejemplo si el cliente quiere un detalle en especial ',
   `estado` char(3) DEFAULT NULL COMMENT 'estado para saber en que fase se encuentra el pedido',
@@ -155,10 +202,10 @@ CREATE TABLE `pedidos_bitacora` (
   `direccion` varchar(100) DEFAULT NULL COMMENT 'direccion en donde se instalara el pedido',
   `usuario_asignado` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
---
--- Dumping data for table `pedidos`
---
 
+--
+-- Dumping data for table `pedidos_bitacora`
+--
 
 -- --------------------------------------------------------
 
@@ -176,6 +223,10 @@ CREATE TABLE `productos` (
   `precio_predeterminado` decimal(10,4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='productos que maneja la empresa';
 
+--
+-- Dumping data for table `productos`
+--
+
 
 -- --------------------------------------------------------
 
@@ -191,6 +242,10 @@ CREATE TABLE `proveedores` (
   `direccion` varchar(150) DEFAULT NULL COMMENT 'direccion del proveedor',
   `descripcion` varchar(100) DEFAULT NULL COMMENT 'descripcion para explicar que provee esa empresa'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='tabla para guardar los proveedores de materiales de la empresa';
+
+--
+-- Dumping data for table `proveedores`
+--
 
 
 -- --------------------------------------------------------
@@ -219,7 +274,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario`, `dpi`, `password`, `nombre`, `direccion`, `telefono`, `email`, `perfil`, `foto`, `estado`, `ultimo_login`, `fecha_registro`) VALUES
-('admin', '123', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 'admin', 'guastatoya', '', '', 'ADMIN', '', 'A', '2021-09-21 15:13:57', '2021-09-21 15:13:57');
+('admin', '123', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 'admin', 'guastatoya', '', '', 'ADMIN', '', 'A', '2021-09-21 15:43:15', '2021-09-21 15:43:15');
 
 --
 -- Indexes for dumped tables
@@ -253,6 +308,7 @@ ALTER TABLE `materiales`
 -- Indexes for table `materiales_utilizados`
 --
 ALTER TABLE `materiales_utilizados`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `detalle_pedido_id` (`detalle_pedido_id`),
   ADD KEY `material_id` (`material_id`);
 
@@ -270,6 +326,12 @@ ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `uq_pedido_id` (`id`),
   ADD KEY `cliente_id` (`cliente_id`);
+
+--
+-- Indexes for table `pedidos_bitacora`
+--
+ALTER TABLE `pedidos_bitacora`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `productos`
@@ -301,31 +363,49 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `detalle_pedido_cliente`
 --
 ALTER TABLE `detalle_pedido_cliente`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'idenfiticador unico', AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'idenfiticador unico', AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `materiales`
 --
 ALTER TABLE `materiales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `materiales_utilizados`
+--
+ALTER TABLE `materiales_utilizados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pagos`
+--
+ALTER TABLE `pagos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `pedidos_bitacora`
+--
+ALTER TABLE `pedidos_bitacora`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identificador unico', AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `proveedores`
@@ -366,31 +446,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
---
--- Disparadores `materiales_utilizados`
---
-DELIMITER $$
-CREATE TRIGGER `actualiza_stock` BEFORE INSERT ON `materiales_utilizados` FOR EACH ROW update materiales m set m.stock=m.stock- new.cantidad where m.id=new.material_id
-$$
-DELIMITER ;
-
---
--- Disparadores `pagos`
---
-DELIMITER $$
-CREATE TRIGGER `actualiza_total_pagado` BEFORE INSERT ON `pagos` FOR EACH ROW update pedidos p set p.total_pagado= p.total_pagado + NEW.abono  where p.id=new.pedido_id
-$$
-DELIMITER ;
-
---
--- Disparadores `pedidos`
---
-DELIMITER $$
-CREATE TRIGGER `actualiza_total_pendiente` BEFORE UPDATE ON `pedidos` FOR EACH ROW update pedidos p set p.total_pendiente=p.total- p.total_pagado  where p.id=new.id
-$$
-DELIMITER ;
-
-
-GT73BRRL01020000004005097255
-GT73BRRL01020000004005097255
